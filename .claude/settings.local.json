@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e 'const fs=require\\(\"\"fs\"\"\\); const d=JSON.parse\\(fs.readFileSync\\(\"\"./public/animations/papa-normal.json\"\",\"\"utf8\"\"\\)\\); const info={layers: d.layers ? d.layers.map\\(l=>\\({nm:l.nm, ty:l.ty, ind:l.ind}\\)\\) : null, assetCount: d.assets ? d.assets.length : 0, fr:d.fr, ip:d.ip, op:d.op, w:d.w, h:d.h}; console.log\\(JSON.stringify\\(info, null, 2\\)\\);')",
+      "Bash(npx next:*)"
+    ]
+  }
+}

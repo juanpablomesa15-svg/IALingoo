@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/daily-notifications",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/cron/evening-notifications",
+      "schedule": "0 23 * * *"
+    },
+    {
+      "path": "/api/cron/tuesday-class-reminder",
+      "schedule": "0 14 * * 2"
+    }
+  ]
+}
