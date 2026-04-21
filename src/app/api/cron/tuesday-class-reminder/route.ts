@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
       try {
         const payload = JSON.stringify({
           title: 'IAlingo - Martes de clase',
-          body: '¡Es martes! Ingresa a Lab10.ai y avanza en tus módulos. Empieza por los Beginner si aún no lo has hecho.',
+          body: '¡Es martes! Ingresa a Lab10.ai y avanza en tus módulos. Empieza por los de principiante si aún no lo has hecho.',
           url: 'https://lab10.ai/',
           tag: 'tuesday-class-reminder',
         });

@@ -86,7 +86,7 @@ export default async function DashboardPage() {
             </div>
             <p className="text-sm text-violet-200">Clases y recursos avanzados de IA</p>
             <p className="text-xs text-violet-300/70 mt-1.5">
-              Comienza por los módulos Beginner →
+              Comienza por los módulos de principiante →
             </p>
           </div>
           <ExternalLink size={20} className="text-white/30 group-hover:text-white/50 transition-colors" />
