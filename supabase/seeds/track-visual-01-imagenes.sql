@@ -117,36 +117,36 @@ Al terminar deberías poder decir: "para [mi caso] voy a usar [X herramienta] po
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Necesitas generar una imagen para un post de Instagram con tu logo y el texto "Lanzamiento 10 de mayo" integrado en el diseño. ¿Qué herramienta es la mejor opción?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Midjourney — mejor calidad artística',
        'Ideogram 3 o GPT Image — son los mejores integrando texto legible dentro de la imagen',
        'Flux 1.1 Pro — más realista',
        'Cualquiera, todas hacen bien el texto'
-     ],
+     ]),
      1,
      0,
      'Texto dentro de imagen fue un punto débil histórico de los generadores. Ideogram se especializó en eso desde el principio, y GPT Image también lo hace muy bien. Midjourney y Flux siguen siendo débiles con texto legible — te van a entregar algo que parece texto pero con letras raras. Para marketing con tipografía, elige la herramienta correcta.'),
 
     (v_lesson_id,
      '¿Cuáles son los 4 ingredientes típicos de un buen prompt de imagen?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Color, tamaño, resolución, formato',
        'Sujeto, estilo, composición, ambiente',
        'Marca, fecha, ubicación, audiencia',
        'Solo describir lo que quieres, la IA entiende sola'
-     ],
+     ]),
      1,
      0,
      'Sujeto (qué aparece), estilo (cómo se ve — fotográfico, ilustración, 3D, etc), composición (ángulo, encuadre, distancia) y ambiente (luz, mood, paleta). Un prompt que cubre estos 4 da resultados muy superiores a "un perro" o "una persona feliz". La IA rellena con sus defaults cuando falta información, y los defaults son genéricos.'),
 
     (v_lesson_id,
      'Ya generaste una imagen que te gusta casi, pero quieres cambiar solo el fondo y dejar el sujeto idéntico. ¿Qué camino eliges?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Regenerar desde cero con un prompt distinto y aceptar que cambie todo',
        'Usar una herramienta de edición como Nano Banana: sube la imagen, pídele solo el cambio de fondo, respeta el resto',
        'Abrir Photoshop manualmente',
        'No se puede cambiar solo el fondo con IA'
-     ],
+     ]),
      1,
      0,
      'Este fue uno de los saltos grandes de 2025-2026. Nano Banana (Gemini 3 Image) hace edición quirúrgica: cambia lo que le pides sin tocar lo demás. Regenerar desde cero es frustrante porque cada nueva generación cambia detalles que tú ya habías aprobado. Saber usar edición en vez de regeneración te ahorra horas y mantiene consistencia.');
@@ -288,36 +288,36 @@ Elige un concepto tuyo (ej: "un cuaderno de apuntes sobre un escritorio" o "un p
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Tienes una imagen que te gusta pero quieres cambiar solo el ángulo de cámara. ¿Cuál es la mejor iteración?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Reescribir todo el prompt desde cero',
        'Decir "same scene but shot from above" o "same scene, camera angle from below"',
        'Generar 50 variaciones y elegir',
        'Cambiar de herramienta'
-     ],
+     ]),
      1,
      0,
      'Iteración quirúrgica: cambias una capa (la de cámara) y dejas las demás iguales. Esto preserva el sujeto, el estilo y el mood que ya te gustan, y solo ajusta lo que querías. Reescribir desde cero te cambia cosas que no querías cambiar y vuelve el proceso largo.'),
 
     (v_lesson_id,
      '¿Qué hace "--ar 16:9" en Midjourney?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Cambia el modelo de IA a usar',
        'Define el aspect ratio (proporción) de la imagen a 16:9, ideal para thumbnails o banners',
        'Aumenta la resolución',
        'Agrega texto a la imagen'
-     ],
+     ]),
      1,
      0,
      '--ar es la bandera para aspect ratio. 16:9 es el formato de thumbnails de YouTube, banners web y monitores. Otros útiles: 1:1 (redes), 9:16 (stories/TikTok), 4:5 (Instagram feed). Decirle el aspecto desde el prompt es mejor que generar cuadrado y recortar después, porque la IA compone pensando en ese formato.'),
 
     (v_lesson_id,
      'Quieres un estilo visual muy específico pero te cuesta describirlo en palabras. ¿Qué puedes hacer?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Resignarte y probar 30 prompts distintos',
        'Subir una imagen de referencia de estilo — la IA copia el estilo y aplica tu prompt',
        'Solo se puede por texto',
        'Pagar por un estilo premium'
-     ],
+     ]),
      1,
      0,
      'La mayoría de herramientas modernas (Midjourney, Nano Banana, Flux) aceptan imágenes de referencia. Puedes pasar una imagen como referencia de estilo ("genera X en este estilo") o de sujeto ("usa esta persona/objeto en un contexto nuevo"). Es infinitamente más preciso que intentar describir con palabras estilos complejos. Regla oro: si puedes mostrar en vez de explicar, muestra.');
@@ -442,36 +442,36 @@ $md$**Crea un personaje consistente y úsalo en 3 escenas.**
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué logras con "character reference" en herramientas modernas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Pagar menos por cada generación',
        'Que el mismo personaje se mantenga consistente a través de múltiples imágenes distintas',
        'Aumentar la resolución final',
        'Cambiar el idioma del prompt'
-     ],
+     ]),
      1,
      0,
      'Character reference es la feature que resolvió uno de los problemas más frustrantes de imagen IA: la falta de consistencia. Pasas una imagen de un personaje (tu mascota, tu character, tu diseño) y la IA mantiene sus rasgos en nuevas escenas. Perfecto para sets de marketing, libros ilustrados, cómics o cualquier cosa que requiera el mismo personaje en contextos distintos.'),
 
     (v_lesson_id,
      'Tienes una foto de producto pero quieres 5 variaciones con fondos distintos sin que el producto cambie. ¿Qué herramienta usas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Regenerar 5 veces desde cero con Midjourney',
        'Usar Nano Banana (Gemini 3 Image) para edición: mismo producto, distintos fondos',
        'Photoshop manual',
        'No es posible'
-     ],
+     ]),
      1,
      0,
      'Nano Banana está optimizado exactamente para este caso: cambios quirúrgicos en una imagen existente manteniendo lo demás intacto. Subes la foto del producto, en cada variación solo le dices el fondo nuevo. En 5 minutos tienes 5 variaciones. Regenerar desde cero en MJ te da 5 productos distintos — no sirve para un set cohesivo.'),
 
     (v_lesson_id,
      '¿Cuál es una limitación real de generación de imágenes en 2026?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Las imágenes salen en blanco y negro',
        'Las manos y el texto pequeño aún fallan a veces — siempre revisa, y para texto preciso mejor añadirlo en Figma/Canva después',
        'Solo se pueden hacer imágenes cuadradas',
        'No se pueden hacer personas'
-     ],
+     ]),
      1,
      0,
      'Seamos honestos: por impresionante que sean, las herramientas actuales tienen fallas conocidas. Manos con dedos extra, texto ilegible, reflejos físicamente imposibles. Un workflow profesional asume eso: revisa siempre manos y texto, y si necesitas texto pequeño y legible (ej. número de teléfono, URL), agrégalo en una herramienta de edición normal después de generar la imagen base.');
@@ -627,36 +627,36 @@ Para cualquiera que elijas:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Un cliente te pide 10 posts para Instagram con estilo visual consistente. ¿Cuál es el workflow más eficiente?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Generar cada uno con un prompt completamente distinto y esperar que salgan similares',
        'Definir un "hero" con el estilo dominante, aprobarlo, y luego derivar los otros 9 con el mismo estilo (reference + pequeños cambios)',
        'Usar 10 herramientas distintas para tener variedad',
        'Hacerlos a mano en Photoshop'
-     ],
+     ]),
      1,
      0,
      'El patrón hero + variantes es lo que hacen las agencias. Consolidas la dirección visual en UNA imagen, la apruebas con el cliente, y las demás se derivan con consistencia. Genera cada una "desde cero" produce sets inconsistentes donde se nota que fueron generadas independientes. Inversión de tiempo: 2-3 horas vs 2 días.'),
 
     (v_lesson_id,
      '¿Cuál es la mejor práctica con prompts que funcionaron bien?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Olvidarlos después de usarlos, cada proyecto es único',
        'Guardarlos en una librería personal (prompts/foto-producto.md, prompts/mockups.md) para reusar y adaptar',
        'Pagarle a otra persona para que los escriba',
        'Nunca reutilizar el mismo prompt'
-     ],
+     ]),
      1,
      0,
      'Los profesionales mantienen librerías de prompts que saben que funcionan. Con el tiempo acumulás "fórmulas" probadas — tu manera de pedir retratos, productos, mockups, ilustraciones. Cada proyecto nuevo, partís de una de esas y adaptás. Ahorra horas. Es conocimiento tácito hecho explícito.'),
 
     (v_lesson_id,
      'Vas a usar una imagen generada para un proyecto comercial (cliente paga). ¿Qué debes revisar?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Nada, todas las imágenes IA son de uso libre',
        'Los términos de uso de la herramienta (algunos requieren plan pago para uso comercial), y evitar "estilo de [artista vivo]" o marcas registradas por riesgo legal',
        'Solo la resolución',
        'Que no tenga texto'
-     ],
+     ]),
      1,
      0,
      'Cada herramienta tiene términos distintos: Midjourney en plan Basic permite uso personal pero comercial requiere Standard+; otras requieren plan pagado para comercial; algunas reclaman cierta atribución. Además, legalmente es gris generar "estilo de artista X" si el artista está vivo, y recrear logos o packaging de marcas reales es copyright. Para trabajos que cobrás, dedica 10 min a leer los términos.');

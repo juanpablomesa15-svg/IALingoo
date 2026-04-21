@@ -159,13 +159,13 @@ $md$**Elegí y comprá tu dominio.**
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '¿Qué TLD elegís en 2026 si está disponible?',
-     ARRAY['.com — sigue siendo el estándar global más confiable','Cualquiera da igual','.xyz porque es barato','.tv'], 0, 0,
+     to_jsonb(ARRAY['.com — sigue siendo el estándar global más confiable','Cualquiera da igual','.xyz porque es barato','.tv']), 0, 0,
      '.com sigue siendo el default confiable: la gente lo asume, confía en él, y no lo confunde con spam. Si está ocupado, .co es la segunda mejor, o .io si sos tech. TLDs raros (.xyz, .site, .online, .click) levantan bandera roja — muchos sitios fraudulentos los usan y los usuarios/clientes lo asocian con spam. Tu dominio es tu primera impresión; invertí los $10/año en un .com bueno.'),
     (v_lesson_id, 'Al comprar un dominio, ¿qué dos cosas debés activar siempre?',
-     ARRAY['Nada especial','WHOIS Privacy (para que tus datos no queden públicos) y Auto-renew (para no perder el dominio si te olvidás pagar)','Solo SSL','Publicidad gratis'], 1, 0,
+     to_jsonb(ARRAY['Nada especial','WHOIS Privacy (para que tus datos no queden públicos) y Auto-renew (para no perder el dominio si te olvidás pagar)','Solo SSL','Publicidad gratis']), 1, 0,
      'Sin WHOIS Privacy tu nombre, email y teléfono aparecen en cualquier herramienta de lookup — spammers y scammers te encuentran. La mayoría de registrars la ofrecen gratis. Auto-renew evita la catástrofe más común: te olvidás de pagar y perdés el dominio. Muchos negocios han perdido su identidad digital por olvidar la renovación. Alternativa segura: pagá 5-10 años de una vez.'),
     (v_lesson_id, 'El .com de tu marca está ocupado. ¿Cuál es el peor camino?',
-     ARRAY['Agregar palabra como "get" o "try" al nombre','Usar un TLD fuerte alternativo como .co','Comprar el mismo nombre con TLD raro (.xyz, .click, .site) y lanzar como si fuera igual','Reformular el nombre'], 2, 0,
+     to_jsonb(ARRAY['Agregar palabra como "get" o "try" al nombre','Usar un TLD fuerte alternativo como .co','Comprar el mismo nombre con TLD raro (.xyz, .click, .site) y lanzar como si fuera igual','Reformular el nombre']), 2, 0,
      'Comprar .xyz o .click "porque el nombre me encanta" es tentador pero contraproducente. Los usuarios lo leen como spam o baja confianza, Google rankea peor, y cuando le digas el dominio al teléfono la gente va a tipear .com por default y no llegará. Mejores caminos: prefijo "get/try/hello", .co o .io si es tech, o reformular el nombre. En 2026 la credibilidad de tu TLD impacta conversión medible.');
 
   -- L2
@@ -333,13 +333,13 @@ $md$**Conectá tu dominio al proyecto.**
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '¿Por qué en 2026 casi todos usan hosting serverless (Vercel, Netlify) vs hosting tradicional?',
-     ARRAY['Es más caro','Es más simple (deploy automático con cada push), auto-scaling, SSL gratis, CDN global incluido — el tradicional requiere configurar todo a mano','No es así','Los tradicionales son mejores'], 1, 0,
+     to_jsonb(ARRAY['Es más caro','Es más simple (deploy automático con cada push), auto-scaling, SSL gratis, CDN global incluido — el tradicional requiere configurar todo a mano','No es así','Los tradicionales son mejores']), 1, 0,
      'Hace 10 años configurar hosting tradicional era la única opción. Hoy las plataformas serverless te dan deploy con 1 click, SSL automático con Let\\'s Encrypt, auto-scaling sin tocar nada y deploy automático cuando pusheas código. Todo con free tier generoso. El tradicional sigue existiendo para casos específicos pero para 90% de proyectos modernos (landings, apps, SaaS chicos) serverless gana cómodo.'),
     (v_lesson_id, 'Configurás DNS para tu dominio y no funciona inmediatamente. ¿Qué hacés?',
-     ARRAY['Borrar todo y empezar de cero','Esperar 5 min - 2h, DNS tarda en propagarse globalmente — si después de 2h sigue sin funcionar, revisá que los records estén correctos','Cambiar de registrar','Llamar a soporte de inmediato'], 1, 0,
+     to_jsonb(ARRAY['Borrar todo y empezar de cero','Esperar 5 min - 2h, DNS tarda en propagarse globalmente — si después de 2h sigue sin funcionar, revisá que los records estén correctos','Cambiar de registrar','Llamar a soporte de inmediato']), 1, 0,
      'DNS propagation tarda de 5 min a 2 horas en casos normales (algunos ISPs tardan hasta 24h en casos raros). El error más común: configurás DNS, no funciona en 5 min, entrás en pánico, lo cambiás, empeorás todo. Paciencia. Chequeá con [dnschecker.org](https://dnschecker.org) si se propagó globalmente. Si después de 2h sigue sin funcionar ahí sí revisá los records y ayuda de soporte.'),
     (v_lesson_id, '¿Cuál es el beneficio principal de meter Cloudflare delante de tu hosting (aunque uses Vercel)?',
-     ARRAY['Nada, es redundante','CDN global (tu sitio se cachea en 300+ ciudades = carga rápido en cualquier país), DDoS protection, DNS mejor — todo gratis en plan free','Es más lento','Solo sirve para sitios grandes'], 1, 0,
+     to_jsonb(ARRAY['Nada, es redundante','CDN global (tu sitio se cachea en 300+ ciudades = carga rápido en cualquier país), DDoS protection, DNS mejor — todo gratis en plan free','Es más lento','Solo sirve para sitios grandes']), 1, 0,
      'Vercel ya tiene CDN bueno, pero Cloudflare free tier agrega protección DDoS, analytics, caching avanzado y un panel de DNS mejor que casi todos los registrars — todo sin costo. Para sitios con tráfico internacional, Cloudflare + Vercel es el combo estándar. El único riesgo: si configurás mal el caching, podés servir versión vieja del sitio. Pero con opciones por defecto es seguro.');
 
   -- L3
@@ -491,13 +491,13 @@ $md$**Configurá tu email corporativo.**
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '¿Cuál es la razón por la que tus emails automáticos pueden caer en spam aunque el contenido sea normal?',
-     ARRAY['Mala suerte','Falta configurar SPF, DKIM y DMARC en tu DNS — son 3 registros que autentican que tu dominio puede mandar esos emails','Usás Mac','Nada, siempre caen'], 1, 0,
+     to_jsonb(ARRAY['Mala suerte','Falta configurar SPF, DKIM y DMARC en tu DNS — son 3 registros que autentican que tu dominio puede mandar esos emails','Usás Mac','Nada, siempre caen']), 1, 0,
      'Gmail/Outlook evalúan si el email es legítimo antes de decidir inbox vs spam. SPF dice "estos servidores pueden mandar emails en nombre de tumarca.com". DKIM firma el email criptográficamente. DMARC dice "si SPF/DKIM fallan, hacé X". Sin los 3, los proveedores dudan y mandan a spam por seguridad. Google Workspace te da los valores exactos al configurar el dominio.'),
     (v_lesson_id, 'Mandás emails transaccionales (confirmaciones, resets) desde tu app. ¿Qué herramienta usás?',
-     ARRAY['Mailchimp','Resend, Postmark o AWS SES — especializadas en transaccional (alta deliverability, API simple, $0.001/email aprox)','Tu Gmail personal','Nada, lo hace tu registrar'], 1, 0,
+     to_jsonb(ARRAY['Mailchimp','Resend, Postmark o AWS SES — especializadas en transaccional (alta deliverability, API simple, $0.001/email aprox)','Tu Gmail personal','Nada, lo hace tu registrar']), 1, 0,
      'Mailchimp/ConvertKit son para marketing (newsletters, promos) — tienen regulaciones específicas, listas opt-in, y caen en spam si las usás para transaccional. Para emails automáticos de acción del usuario (bienvenida, reset password, confirmación compra), usás herramientas especializadas: Resend, Postmark, SES. Se integran a tu app por API y tienen deliverability 99%+.'),
     (v_lesson_id, 'En tu Google Workspace, ¿qué es un "alias" y para qué sirve?',
-     ARRAY['Una cuenta adicional pagada','Un email adicional que recibe a tu inbox principal (ej. hola@ info@ soporte@ todos llegando al mismo inbox) — gratis, hasta 30 alias por usuario','Un backup de tu email','Lo mismo que una cuenta normal'], 1, 0,
+     to_jsonb(ARRAY['Una cuenta adicional pagada','Un email adicional que recibe a tu inbox principal (ej. hola@ info@ soporte@ todos llegando al mismo inbox) — gratis, hasta 30 alias por usuario','Un backup de tu email','Lo mismo que una cuenta normal']), 1, 0,
      'Los alias son emails gratis que redirigen a tu inbox principal. En vez de crear 5 usuarios (5 × $7 = $35/mes), tenés 1 usuario con 5 alias ($7/mes total). Típico setup: `hola@` recibe contacto general, `info@` para FAQs, `ventas@` para leads, `soporte@` para tickets. Todos llegan a vos, pero el que manda ve una dirección profesional específica. Gmail Workspace permite hasta 30 alias por usuario.');
 
   -- L4
@@ -664,13 +664,13 @@ Checklist:
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '2FA por SMS es mejor que por app de autenticación:',
-     ARRAY['Sí, es más simple','Falso — SMS es vulnerable a SIM swapping (atacantes roban tu número). Apps como Google Authenticator o Authy son mucho más seguras','Son iguales','No importa'], 1, 0,
+     to_jsonb(ARRAY['Sí, es más simple','Falso — SMS es vulnerable a SIM swapping (atacantes roban tu número). Apps como Google Authenticator o Authy son mucho más seguras','Son iguales','No importa']), 1, 0,
      'SIM swapping es un ataque real y creciente: el atacante convence a la compañía telefónica de transferir tu número a su SIM (con social engineering o empleados corruptos), y ahora recibe tus códigos SMS. Con eso accede a todo lo que tengas SMS 2FA. Apps de autenticación (TOTP) generan códigos offline en tu dispositivo — el atacante necesita físicamente el dispositivo. Cambiá SMS por app en todo lo crítico.'),
     (v_lesson_id, 'Hacés un cambio importante en tu código. ¿Cómo deployás sin riesgo a producción?',
-     ARRAY['Pushear directo a main','Crear branch de feature, Vercel/Netlify generan preview URL automática, testeás ahí, mergear a main cuando confirmás — si algo sale mal, revertís el merge','Esperar al fin de semana','No deployear nunca'], 1, 0,
+     to_jsonb(ARRAY['Pushear directo a main','Crear branch de feature, Vercel/Netlify generan preview URL automática, testeás ahí, mergear a main cuando confirmás — si algo sale mal, revertís el merge','Esperar al fin de semana','No deployear nunca']), 1, 0,
      'El flujo seguro: branch de feature → preview deploy automático → testeás → merge a main → deploy automático a producción. Si un bug llega a prod, revertís el merge en GitHub y producción vuelve en 30 segundos. Pushear directo a main sin testear es cómo una empresa se rompe el servidor por un typo. Las plataformas modernas te dan preview deploys gratis — es negligente no usarlos.'),
     (v_lesson_id, '¿Qué hacés si una API key tuya se filtró accidentalmente en un repo público?',
-     ARRAY['Borrar el commit y fingir que no pasó','Revocar inmediatamente la key desde el proveedor y generar una nueva — asumí que fue comprometida aunque borres el commit, porque ya fue scrapeada por bots','Cambiar el nombre del repo','Nada, no importa'], 1, 0,
+     to_jsonb(ARRAY['Borrar el commit y fingir que no pasó','Revocar inmediatamente la key desde el proveedor y generar una nueva — asumí que fue comprometida aunque borres el commit, porque ya fue scrapeada por bots','Cambiar el nombre del repo','Nada, no importa']), 1, 0,
      'Los repositorios públicos son escaneados permanentemente por bots buscando secrets. Una key expuesta 5 segundos ya fue registrada por varios scrapers. Aunque la borres del commit (incluso del historial con rebase), asumí que está comprometida: revocala del proveedor y generá nueva de inmediato. Además, configurá GitHub secret scanning para que te avise si pasa de nuevo. Git filter-branch para "limpiar" historial es inútil si ya fue robada.');
 
   RAISE NOTICE 'Módulo "Hosting y dominio": 4 lecciones + 12 quizzes insertados.';

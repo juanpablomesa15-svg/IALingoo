@@ -109,36 +109,36 @@ Después, pídele: "¿De las 3 respuestas anteriores, en cuál podrías haber al
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué hace realmente un modelo de lenguaje cuando genera una respuesta?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Busca la respuesta en internet en tiempo real',
        'Predice el siguiente pedazo de texto más probable según patrones que aprendió',
        'Consulta una base de datos de respuestas correctas',
        'Razona como un humano y luego escribe la respuesta'
-     ],
+     ]),
      1,
      0,
      'Los modelos generan texto token por token, prediciendo el siguiente más probable según los patrones aprendidos durante el entrenamiento. No "razonan" ni "saben" — simulan comprensión a partir de patrones estadísticos muy buenos.'),
 
     (v_lesson_id,
      '¿Cuál de estas tareas NO puede hacer bien una IA sin herramientas externas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Resumir un texto largo',
        'Escribir un email formal en inglés',
        'Decirte qué pasó ayer en las noticias',
        'Explicar un concepto con analogías'
-     ],
+     ]),
      2,
      0,
      'Los modelos tienen un "cutoff" de conocimiento (la fecha donde terminó su entrenamiento). Sin conexión a búsqueda web o a tus datos, no saben qué pasó recientemente. Resumir, escribir y explicar son sus fortalezas naturales.'),
 
     (v_lesson_id,
      '¿Qué es una "alucinación" en IA?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un error de software del modelo',
        'Una respuesta que la IA da con total seguridad pero que es falsa o inventada',
        'Cuando la IA no responde y se queda en blanco',
        'Un modo creativo especial para escribir ficción'
-     ],
+     ]),
      1,
      0,
      'Una alucinación es cuando la IA genera información plausible pero incorrecta — fechas falsas, libros que no existen, citas inventadas. Suena creíble porque encaja en el patrón, pero no es real. Por eso siempre verifica datos específicos.');
@@ -248,48 +248,48 @@ Tu misión: provocar una alucinación a propósito y reconocerla.
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué es la "ventana de contexto" de un modelo?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'La cantidad de usuarios que pueden usar el modelo al mismo tiempo',
        'La cantidad de texto (tokens) que el modelo puede procesar a la vez en una conversación',
        'El tiempo que tarda en responder',
        'El número de preguntas que puedes hacerle por día'
-     ],
+     ]),
      1,
      0,
      'La ventana de contexto es todo el texto que el modelo puede "ver" en una sola interacción: tu prompt, el historial del chat y cualquier documento pegado. Claude 4 maneja ~200k tokens, suficiente para un libro entero.'),
 
     (v_lesson_id,
      '¿En cuál de estos casos es más probable que la IA alucine?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Al resumir un artículo que le pegaste',
        'Al traducir un párrafo al inglés',
        'Al pedirle citas textuales de libros o datos numéricos específicos',
        'Al reformular un email con tono más profesional'
-     ],
+     ]),
      2,
      0,
      'Las alucinaciones se disparan con datos específicos (fechas, cifras, citas textuales, URLs). Cuando le das el material fuente o le pides tareas lingüísticas, trabaja con lo que tiene y alucina mucho menos.'),
 
     (v_lesson_id,
      '¿Cuál de estas NO es una forma efectiva de reducir alucinaciones?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Darle al modelo el contexto o documento fuente tú mismo',
        'Pedirle explícitamente que admita si no sabe algo',
        'Usar palabras más largas y técnicas en la pregunta',
        'Conectarlo a herramientas como búsqueda web'
-     ],
+     ]),
      2,
      0,
      'Las palabras más técnicas no reducen alucinaciones. Lo que funciona es: (1) darle el contexto, (2) pedirle que diga "no lo sé" si no está seguro, (3) conectarlo a herramientas reales (búsqueda, bases de datos).'),
 
     (v_lesson_id,
      'Si tu chat con la IA empieza a dar respuestas confusas o repetitivas, ¿qué es lo mejor que puedes hacer?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Reiniciar el modelo desde cero',
        'Empezar un chat nuevo, el contexto anterior puede estar "ensuciado"',
        'Escribir en mayúsculas para enfatizar',
        'Pagar una suscripción más alta'
-     ],
+     ]),
      1,
      0,
      'Cuando un chat se vuelve largo o caótico, el contexto acumulado puede confundir al modelo. Un chat nuevo con un prompt bien estructurado suele resolverlo al instante.');
@@ -427,48 +427,48 @@ $md$**Reescribe un prompt tuyo (15 min)**
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál de estos NO es uno de los 5 pilares de un buen prompt?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Rol (quién responde)',
        'Contexto (qué más debe saber)',
        'Idioma de la respuesta',
        'Formato (cómo debe responder)'
-     ],
+     ]),
      2,
      0,
      'Los 5 pilares son: rol, contexto, tarea clara, formato y restricciones. El idioma es una restricción puntual — no un pilar estructural.'),
 
     (v_lesson_id,
      '¿Qué es la técnica "few-shot"?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Pedirle al modelo que responda muy corto',
        'Mostrar 2-3 ejemplos del output que quieres para que el modelo imite el patrón',
        'Usar un modelo pequeño para ahorrar costos',
        'Hacer varias preguntas en paralelo'
-     ],
+     ]),
      1,
      0,
      'Few-shot significa darle ejemplos del resultado deseado. En vez de describir el estilo, lo muestras. Dos o tres ejemplos bien elegidos suelen funcionar mejor que párrafos explicando.'),
 
     (v_lesson_id,
      '¿Cuándo conviene agregar "piensa paso a paso" al prompt?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Siempre, en cualquier prompt',
        'En problemas con varios pasos: matemáticas, lógica, análisis, debugging',
        'Solo cuando el modelo se equivoca la primera vez',
        'Nunca, alarga la respuesta sin beneficio'
-     ],
+     ]),
      1,
      0,
      '"Piensa paso a paso" (chain-of-thought) sube la precisión en problemas que requieren múltiples pasos de razonamiento. Para preguntas simples no aporta; para problemas complejos cambia el juego.'),
 
     (v_lesson_id,
      'Tu primera respuesta de la IA no fue lo que esperabas. ¿Cuál es el peor siguiente paso?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Refinar el prompt con más contexto y pedirle de nuevo',
        'Darle feedback específico: "la respuesta es muy genérica, dame ejemplos concretos"',
        'Aceptar esa respuesta aunque no te sirva y usarla así',
        'Darle 2-3 ejemplos del tipo de respuesta que buscas'
-     ],
+     ]),
      2,
      0,
      'Aceptar una respuesta mediocre es el único error real. Refinar, iterar, dar ejemplos o más contexto son todas buenas prácticas — es así como se trabaja con IA en serio.');
@@ -591,36 +591,36 @@ Para cada uno de estos casos, **decide qué herramienta usarías y por qué** (e
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué herramienta es más adecuada para "automatizar que cada email con factura se guarde en Drive"?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Midjourney',
        'Claude Code',
        'n8n o Make.com',
        'Lovable'
-     ],
+     ]),
      2,
      0,
      'Esa es una automatización clásica: trigger (email recibido) → acción (guardar en Drive + notificar). n8n y Make.com son los reyes de ese tipo de flujos.'),
 
     (v_lesson_id,
      'Quieres construir una landing page sin programar. ¿Qué opción NO sirve para eso?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Lovable',
        'v0 de Vercel',
        'Bolt.new',
        'ElevenLabs'
-     ],
+     ]),
      3,
      0,
      'ElevenLabs genera voz sintética, no páginas web. Lovable, v0 y Bolt.new son builders con IA pensados exactamente para sitios y apps.'),
 
     (v_lesson_id,
      '¿Cuál es la diferencia fundamental entre un chat de IA y un "agente"?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'El agente es más rápido',
        'El agente usa herramientas y toma decisiones para cumplir un objetivo, no solo responde',
        'El agente es un modelo más nuevo',
        'No hay diferencia, son lo mismo'
-     ],
+     ]),
      1,
      0,
      'Un chat conversa. Un agente actúa: usa herramientas (búsqueda web, APIs, tu calendario, etc.), decide qué hacer a continuación y ejecuta pasos para lograr un objetivo. Es el siguiente nivel después del chat.');

@@ -135,36 +135,36 @@ $md$**Adopta a Claude como tu coworker (10 min)**
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál de los modelos Claude conviene usar por defecto para el 95% de tus tareas diarias?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Claude Opus 4 — para estar seguros de tener la mejor calidad',
        'Claude Sonnet 4 — el equilibrio perfecto entre calidad y velocidad',
        'Claude Haiku 4 — el más barato',
        'El que la IA elija automáticamente'
-     ],
+     ]),
      1,
      0,
      'Sonnet es el caballo de batalla: suficiente para prácticamente todo el trabajo diario. Opus es para problemas muy complejos (y más lento/caro), Haiku para tareas simples a escala.'),
 
     (v_lesson_id,
      'Estás conversando con Claude sobre tu proyecto de negocio y de repente cambias a preguntarle sobre una receta de cocina. ¿Qué es lo más recomendable?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Seguir en el mismo chat, Claude maneja bien los cambios de tema',
        'Abrir un chat nuevo para la receta y dejar el del negocio aparte',
        'Primero cerrar explícitamente el tema del negocio',
        'Cambiar a Opus para que entienda mejor'
-     ],
+     ]),
      1,
      0,
      'Mezclar temas muy distintos ensucia el contexto y aumenta errores. Regla simple: un tema por chat. Tus conversaciones anteriores quedan guardadas por si necesitas volver.'),
 
     (v_lesson_id,
      'Claude NO hace nativamente cuál de estas cosas:',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Analizar un documento PDF largo que le pegas',
        'Escribir y explicar código',
        'Generar imágenes a partir de texto',
        'Razonar sobre un problema paso a paso'
-     ],
+     ]),
      2,
      0,
      'Claude no genera imágenes (sí las lee e interpreta, pero no las crea). Para imágenes usarás herramientas como Midjourney o Nano Banana en el track Creador Visual.');
@@ -297,36 +297,36 @@ $md$**Crea tu primer Proyecto (15 min)**
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál es el propósito principal de los Proyectos en Claude?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Tener un chat más rápido',
        'Acceder a modelos especiales que no están en chats normales',
        'Mantener contexto, instrucciones y archivos compartidos entre varias conversaciones sobre el mismo tema',
        'Compartir conversaciones públicamente con otros usuarios'
-     ],
+     ]),
      2,
      0,
      'Los Projects existen para resolver el problema de "empezar en blanco cada vez". Agrupan chats relacionados bajo un system prompt común y un knowledge cargado una sola vez.'),
 
     (v_lesson_id,
      '¿Qué es el "system prompt" o "custom instructions" de un proyecto?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Las preguntas que ya le hiciste a Claude',
        'Las instrucciones base que Claude respeta en TODOS los chats de ese proyecto',
        'Un archivo con ejemplos de respuestas correctas',
        'El nombre del proyecto'
-     ],
+     ]),
      1,
      0,
      'El system prompt es el conjunto de instrucciones permanentes: rol, tono, reglas, formato. Claude las lee al inicio de cada chat dentro del proyecto y actúa en consecuencia.'),
 
     (v_lesson_id,
      'Cuál de estos NO es un buen uso de Proyectos:',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un proyecto "Mi negocio" con catálogo y políticas como knowledge',
        'Un proyecto "Tutor de IA" para estudiar todo IALingoo',
        'Un proyecto para una única pregunta suelta sobre una receta',
        'Un proyecto "Cliente X" para un freelancer con varios clientes'
-     ],
+     ]),
      2,
      0,
      'Un proyecto tiene overhead de setup (instrucciones, knowledge). Para una pregunta única, usar un chat normal es más rápido. Los proyectos brillan cuando vuelves al mismo tema muchas veces.');
@@ -450,36 +450,36 @@ Elige UNA de estas tres opciones y pídele a Claude que te la entregue como arte
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué es un "artefacto" en Claude?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un modelo más antiguo de Claude',
        'Un error cuando la IA no entiende la pregunta',
        'Un entregable (documento, código, web, diagrama) que aparece en un panel aparte del chat',
        'Un tipo de archivo que solo se puede abrir en Windows'
-     ],
+     ]),
      2,
      0,
      'Un artefacto es un entregable "al lado de la conversación": un documento editable, un bloque de código, una página web funcional, un diagrama. Te permite trabajar con resultados concretos, no solo con respuestas.'),
 
     (v_lesson_id,
      '¿Cuál de estos pedidos es MÁS probable que Claude entregue como artefacto?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Dame 3 ideas de nombre para mi negocio',
        '¿Qué piensas sobre la tendencia del home office?',
        'Hazme una landing page en HTML para mi cafetería, con menú y horarios',
        'Explícame con 2 frases qué es el marketing'
-     ],
+     ]),
      2,
      0,
      'Claude tiende a crear artefacto cuando el contenido es largo, independiente y reutilizable (una web, un documento, un diagrama). Respuestas cortas o conversacionales se quedan inline.'),
 
     (v_lesson_id,
      'Tienes un artefacto de una página web, pero quieres cambiar los colores y agregar una sección nueva. ¿Qué es lo mejor?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Pedirle a Claude que empiece de cero con una nueva conversación',
        'Copiar el código a otro lado y editarlo manualmente',
        'Pedirle directamente los cambios: Claude edita el mismo artefacto manteniendo versiones anteriores',
        'No se puede, los artefactos son de solo lectura'
-     ],
+     ]),
      2,
      0,
      'Los artefactos son iterativos por diseño. Claude edita el mismo artefacto y guarda el historial — puedes volver a una versión anterior si te arrepientes. Es la misma filosofía de Google Docs: trabajas sobre el mismo documento, no sobre copias.');
@@ -617,36 +617,36 @@ Copia 20 filas de datos cualquiera (un Excel, una tabla web) y pégalas. Pide:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál de estos archivos puedes subirle directamente a Claude para que lo analice?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un PDF de 80 páginas',
        'Un Excel con 5000 filas',
        'Una imagen con texto (captura, foto, diagrama)',
        'Todos los anteriores'
-     ],
+     ]),
      3,
      0,
      'Claude acepta PDF, Word, Excel, imágenes, archivos de código, CSV, JSON, markdown. Puedes subir varios a la vez y pedirle que los cruce. Es la feature que más tiempo ahorra en el día a día.'),
 
     (v_lesson_id,
      'Tienes un CSV con 5000 filas de ventas y quieres contar las ventas por región con precisión. ¿Qué feature es la clave?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Búsqueda web',
        'Ejecución de código (analysis tool) — Claude corre Python para calcular de verdad',
        'Voice mode',
        'Proyectos'
-     ],
+     ]),
      1,
      0,
      'Para cálculos precisos sobre datos, el analysis tool corre Python real dentro del chat. Sin esa feature, Claude podría aproximar o equivocarse. Con ella, hace los mismos cálculos que harías en Excel o con un script.'),
 
     (v_lesson_id,
      'Cuál de estas cosas Claude.ai NO hace por sí solo:',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Leer e interpretar una imagen que le subas',
        'Analizar un PDF largo y resumirlo',
        'Enviar un email a tu cliente por ti',
        'Ejecutar código Python para calcular algo'
-     ],
+     ]),
      2,
      0,
      'Claude.ai habla — no actúa en tus apps. Para que envíe emails o tome acciones en otros sistemas se necesitan agentes + MCP (que verás en el track de AI Agents). El chat normal está acotado a lectura y generación.');

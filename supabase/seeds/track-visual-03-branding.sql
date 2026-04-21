@@ -154,36 +154,36 @@ Elige una marca (real tuya, idea que tengas, o inventada para practicar). Escrib
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué es un arquetipo de marca y para qué sirve?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un tipo de logo',
        'Una personalidad narrativa que define el tono de comunicación (Hero, Sage, Creator, etc.) — guía todas las decisiones visuales y de copy',
        'Un formato de archivo',
        'Solo sirve para marcas grandes'
-     ],
+     ]),
      1,
      0,
      'Los 12 arquetipos jungianos son personalidades universales que se repiten en marcas y narrativas. Nike es Hero (superación), Apple es Creator (innovación), Harley es Outlaw (rebeldía). Elegir uno te da un ancla de tono: "si fuéramos Hero, ¿qué diríamos?". Evita que cada post/pieza se sienta distinto. Marcas fuertes son coherentes porque tienen un arquetipo claro detrás.'),
 
     (v_lesson_id,
      'Antes de generar tu logo con IA, ¿qué deberías tener listo?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Solo una idea general en la cabeza',
        'Estrategia escrita: audiencia, oferta, diferencial, feel en 3 palabras, arquetipo, espectros visuales, moodboard',
        'Un presupuesto alto',
        'Un estudio de diseño contratado'
-     ],
+     ]),
      1,
      0,
      'Generar sin estrategia es generar al azar. Podés ver 50 logos bonitos y no saber cuál elegir porque no tenés un criterio. Tener la estrategia definida ANTES te deja evaluar cada opción contra tu brief: "este logo comunica el feel correcto? ¿encaja con mi arquetipo?". Es la diferencia entre generar arte random y diseñar con intención.'),
 
     (v_lesson_id,
      'Al elegir el nombre de tu marca, ¿qué debés verificar además de que "suene bien"?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Nada más, si suena bien alcanza',
        'Disponibilidad de dominio (.com o de tu país) + al menos 2 redes sociales, y que sea fácil de escribir/pronunciar en los idiomas de tu audiencia',
        'Que sea muy largo para destacar',
        'Que empiece con A para aparecer primero'
-     ],
+     ]),
      1,
      0,
      'Un nombre bonito con dominio ocupado es un problema. Después del primer cliente, ya es tarde para cambiar. Antes de enamorarte: verificá dominio (NameCheap, Namecheap, Google Domains), 2-3 redes (Instagram, TikTok, LinkedIn, X), y probá pronunciarlo en voz alta en los idiomas donde vas a operar. Nombres que se confunden al escribirlos ("¿va con S o con Z?") también pierden tráfico directo.');
@@ -323,36 +323,36 @@ Con tu brief de la lección 1:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Ideogram o GPT Image son mejores que Midjourney para logos porque:',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Son más caros',
        'Manejan texto legible (tipografía del wordmark) — Midjourney es excelente estéticamente pero falla en letras claras',
        'Solo permiten logos',
        'No son mejores'
-     ],
+     ]),
      1,
      0,
      'Esto es lo más frustrante de Midjourney: genera imágenes hermosas pero las letras salen distorsionadas o con caracteres raros. Ideogram y GPT Image se entrenaron específicamente para texto legible. Para logos (donde el nombre de la marca debe leerse perfecto) son la elección correcta. Si amás el estilo estético de MJ, podés generar el símbolo ahí y combinar el wordmark en Figma.'),
 
     (v_lesson_id,
      'Un logo generado por IA rara vez está 100% listo. ¿Qué hacés después de generarlo?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Usarlo directamente tal como salió',
        'Vectorizarlo (PNG → SVG con herramientas como Vectorizer.ai) y refinarlo en Figma: ajustar proporciones, espaciado y colores exactos',
        'Generarlo 100 veces más hasta que salga perfecto',
        'Pagarle a un diseñador que lo rehaga entero'
-     ],
+     ]),
      1,
      0,
      'El flujo profesional: IA genera la idea visual, Figma la termina. Necesitás SVG para que escale sin pixelarse, control exacto de colores (el PNG tiene variaciones mínimas entre versiones), y ajustes finos que IA no controla (espaciado entre símbolo y texto, alineación perfecta, versiones). Vectorizar + refinar toma 30-60 min y cambia todo.'),
 
     (v_lesson_id,
      'Una paleta de marca sólida típicamente tiene:',
-     ARRAY[
+     to_jsonb(ARRAY[
        '10 colores para tener variedad',
        '1 primario + 1-2 secundarios + neutros (blanco, negro, grises) + opcional 1 acento para CTAs — en total 4-6 tonos',
        'Solo 1 color, el primario',
        'Todos los colores del arcoíris'
-     ],
+     ]),
      1,
      0,
      'Demasiados colores = marca indecisa. Muy pocos = marca limitada. El sweet spot: 1 primario (el dominante), 1-2 secundarios (variedad), neutros (para texto y fondos) y opcionalmente un acento llamativo para CTAs (botones de acción). Total 4-6 tonos bien usados. Con eso podés diseñar cualquier pieza sin decisiones complicadas cada vez.');
@@ -501,36 +501,36 @@ En Figma, Canva o Notion, construye un doc de 6-10 páginas con:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué es un design system en Figma y por qué vale la pena?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Una plantilla gratis que descargás',
        'Un conjunto de variables de color, estilos de texto y componentes reutilizables — hace que diseñar una pieza nueva tome 15 min en vez de 1h, y mantiene consistencia',
        'Una extensión de pago',
        'Solo sirve para apps grandes'
-     ],
+     ]),
      1,
      0,
      'Un design system es la librería de "átomos" de tu marca en Figma: colores como variables (no hex pegados), estilos de texto predefinidos (H1, body...), componentes (botón primario, card...). Cuando creás una pieza nueva, arrastrás componentes existentes. Resultado: velocidad + consistencia automática. Cuando cambiás el color primario, todas las piezas se actualizan. Es la diferencia entre diseñar con intención vs improvisar cada vez.'),
 
     (v_lesson_id,
      '¿Qué es "voice & tone" en branding?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'El sonido del logo',
        'La personalidad de cómo habla la marca: vocabulario, ritmo, formalidad — parte del branding igual que lo visual',
        'Solo aplica para marcas con podcast',
        'Un sinónimo de "tipografía"'
-     ],
+     ]),
      1,
      0,
      'Una marca es visual Y textual. Cómo escribís tus posts, emails, captions y páginas web comunica tanto como tu logo. Voice & tone define: con qué personalidad habla tu marca, qué palabras usa, qué evita, cuán formal es. Sin un voice definido, cada pieza tiene un tono distinto y la marca se siente inconsistente. Definirlo toma 30 min y se replica en cientos de piezas.'),
 
     (v_lesson_id,
      'Terminás tu brand. ¿Cuál es el mejor test de consistencia?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Revisar vos mismo con cuidado',
        'Mostrarle a alguien externo 5 piezas al azar (posts, logo, email, web) y preguntarle si parecen de la misma marca — si duda, ajustá',
        'No hay forma de testear',
        'Esperar a que un cliente se queje'
-     ],
+     ]),
      1,
      0,
      'Un ojo externo sin contexto previo capta inconsistencias que vos, como autor, no ves. Le mostrás 5 piezas y preguntás: "¿te parecen de la misma marca?". Si hay duda, algo no está alineado (puede ser color, tipografía, estilo de imagen, voice). Este test rápido identifica fugas que vos ya normalizaste. Hacelo cada vez que saques nuevas piezas.');
@@ -661,36 +661,36 @@ Sobre tu brand book:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuándo tiene sentido hacer un rebrand (cambio grande) vs micro-iteraciones (ajustes pequeños)?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Siempre hacer rebrand, es más impactante',
        'Rebrand solo cuando hay un cambio estructural (nuevo público, pivote, escalado a nuevos mercados). Micro-iteraciones para afinar lo que ya funciona',
        'Nunca hacer rebrand',
        'Cada 3 meses rebrand automáticamente'
-     ],
+     ]),
      1,
      0,
      'Rebrands tienen costo: pérdida de reconocimiento acumulado, confusión de la audiencia, inversión en re-producción de piezas. Solo se justifican cuando algo estructural cambió en el negocio. Para mejorar lo que tenés, micro-iteraciones son más seguras: cambiás un color, añadís un patrón, evolucionás voice. No hay anuncio, no hay reset.'),
 
     (v_lesson_id,
      'El error más grande al iterar una marca es:',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Cambiar muy poco',
        'Confundir "a mí me gusta" con "funciona" — decisiones deben basarse en datos (reconocimiento, engagement, conversión), no solo en tu gusto personal',
        'Usar IA para los cambios',
        'Pedir feedback a alguien más'
-     ],
+     ]),
      1,
      0,
      'Tu gusto no es la métrica. El logo/color/voice que MÁS te gusta no necesariamente es el que más conecta con tu audiencia, el que más se reconoce o el que más convierte. Decisiones estratégicas de marca requieren datos: engagement rates, feedback de clientes, tests A/B si es posible. Los fundadores que insisten en "esto me gusta a mí" suelen terminar con marcas que no funcionan comercialmente.'),
 
     (v_lesson_id,
      'Al diseñar hoy, ¿qué es "pensar en lo que venga"?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Diseñar solo para el presente',
        'Considerar si el sistema escala a nuevos productos, mercados o medios futuros — evita rebrands dolorosos más adelante',
        'Contratar un diseñador famoso',
        'Gastar más dinero hoy'
-     ],
+     ]),
      1,
      0,
      'Pensar en escalabilidad: ¿funcionará si mañana lanzás un segundo producto? ¿Si el nombre se traduce al inglés? ¿Si imprimís en una t-shirt? ¿Si pasás de B2C a B2B? Un sistema flexible hoy te ahorra rehacer todo en 2 años cuando crezcas. Las marcas que escalan bien fueron diseñadas con estos escenarios en mente desde el día 1, aunque en ese momento parecieran lejanos.');

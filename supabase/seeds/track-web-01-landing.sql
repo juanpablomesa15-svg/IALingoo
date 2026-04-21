@@ -164,13 +164,13 @@ Elegí una idea (real tuya, o ficticia para practicar) y escribí el copy comple
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, 'La prioridad #1 al construir una landing es:',
-     ARRAY['Diseño visual impresionante','Claridad del mensaje — el visitante entiende qué es y para quién en 5 segundos','Cantidad de secciones','Animaciones cinematográficas'], 1, 0,
+     to_jsonb(ARRAY['Diseño visual impresionante','Claridad del mensaje — el visitante entiende qué es y para quién en 5 segundos','Cantidad de secciones','Animaciones cinematográficas']), 1, 0,
      'Una landing fea con copy clarísimo convierte más que una bonita con copy confuso. La jerarquía de inversión debería ser: claridad > estructura > diseño. Muchos fundadores lo invierten y terminan con páginas preciosas que nadie entiende. Primero escribís copy que comunique en 5 segundos qué ofrecés y para quién; después diseñás alrededor de ese mensaje.'),
     (v_lesson_id, 'Tenés un producto nuevo sin usuarios todavía. ¿Cómo conseguís prueba social real (no inventada)?',
-     ARRAY['Inventar testimonios','Mentir con números','Aceptar alpha/beta users gratis a cambio de feedback y testimonios — los primeros 10-20 usuarios pagan con feedback, no plata','Esperar a tener 1000 usuarios'], 2, 0,
+     to_jsonb(ARRAY['Inventar testimonios','Mentir con números','Aceptar alpha/beta users gratis a cambio de feedback y testimonios — los primeros 10-20 usuarios pagan con feedback, no plata','Esperar a tener 1000 usuarios']), 2, 0,
      'Testimonios inventados se huelen a distancia. La estrategia probada para lanzar: ofrece acceso gratis o muy barato a 10-20 usuarios a cambio de feedback real y permiso para citarlos. Obtenés testimonios genuinos, product insights, y el boca a boca de esos primeros usuarios. Muchas empresas grandes arrancaron así.'),
     (v_lesson_id, '¿Cuántos CTAs principales debería tener tu hero?',
-     ARRAY['Cuantos más mejor','Uno solo — múltiples CTAs confunden y diluyen conversión. Un CTA principal y opcionalmente un secundario sutil ("ver demo")','Ninguno, el usuario decide solo','Tres mínimo'], 1, 0,
+     to_jsonb(ARRAY['Cuantos más mejor','Uno solo — múltiples CTAs confunden y diluyen conversión. Un CTA principal y opcionalmente un secundario sutil ("ver demo")','Ninguno, el usuario decide solo','Tres mínimo']), 1, 0,
      'Un hero con 3 CTAs ("Empieza gratis", "Ver demo", "Hablar con ventas") parece dar opciones pero en realidad confunde y dispersa. Cada CTA extra baja la conversión del principal. Regla: un CTA principal claro, y si necesitás otro, que sea secundario visual ("ver demo" en link sin botón). La claridad de acción es parte de por qué la landing convierte.');
 
   -- L2
@@ -312,13 +312,13 @@ Usa el copy que escribiste:
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '¿Qué diferencia a Lovable de herramientas como v0 o Webflow?',
-     ARRAY['Es más barato','Construye full-stack (frontend + backend + BD + deploy) desde prompt conversacional en español — v0 es solo componentes frontend, Webflow es visual no-code sin IA generativa tan potente','No usa IA','Es igual'], 1, 0,
+     to_jsonb(ARRAY['Es más barato','Construye full-stack (frontend + backend + BD + deploy) desde prompt conversacional en español — v0 es solo componentes frontend, Webflow es visual no-code sin IA generativa tan potente','No usa IA','Es igual']), 1, 0,
      'Cada una tiene su nicho. v0 genera componentes React hermosos pero solo frontend. Webflow es visual drag-and-drop premium (sin chat generativo tan potente como Lovable). Lovable te da el stack completo desde conversación: frontend + backend + BD + auth + deploy, todo prompteable en español. Por eso es la más elegida para "tengo una idea y quiero una app funcional mañana".'),
     (v_lesson_id, 'Acabás de generar tu landing y te gusta el diseño en desktop. ¿Qué debés hacer antes de publicarla?',
-     ARRAY['Publicar de una','Testearla en mobile — abrir desde el celular y navegar completo. 70%+ del tráfico es mobile y es donde más cosas se rompen','Esperar a que alguien la revise','Nada, Lovable hace mobile perfecto'], 1, 0,
+     to_jsonb(ARRAY['Publicar de una','Testearla en mobile — abrir desde el celular y navegar completo. 70%+ del tráfico es mobile y es donde más cosas se rompen','Esperar a que alguien la revise','Nada, Lovable hace mobile perfecto']), 1, 0,
      'Lovable genera mobile-first razonablemente bien, pero nunca perfecto. Pequeñas cosas se rompen: botones cortados, textos superpuestos, scroll horizontal raro, imágenes enormes que cargan lento. Si tu primer visitante llega desde mobile y la experiencia es mala, se va. 2 minutos testando en el celular propio evitan pérdida de leads.'),
     (v_lesson_id, 'Iterás 50 veces con Lovable sin revisar integral. ¿Qué probablemente pasa?',
-     ARRAY['Todo mejora automáticamente','Se acumulan contradicciones entre iteraciones (por ejemplo cambiaste color 3 veces, padding 5 veces) y el resultado final tiene inconsistencias','Lovable mejora solo','Nada malo'], 1, 0,
+     to_jsonb(ARRAY['Todo mejora automáticamente','Se acumulan contradicciones entre iteraciones (por ejemplo cambiaste color 3 veces, padding 5 veces) y el resultado final tiene inconsistencias','Lovable mejora solo','Nada malo']), 1, 0,
      'Al iterar mucho sin checkpoint, Lovable puede olvidar decisiones anteriores o hacer cambios que contradicen iteraciones previas. El patrón sano: iterá 3-5 cambios, revisá la página entera (desktop + mobile), y si hay inconsistencias arreglalas en un solo mensaje integral. Sin esa pausa de revisión, lo que empezó coherente termina parcheado.');
 
   -- L3
@@ -476,13 +476,13 @@ Pasos:
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, 'Necesitás un dashboard admin bonito con tabla y charts dentro de tu proyecto Next.js existente. ¿Cuál herramienta?',
-     ARRAY['Lovable, porque es full-stack','v0 — genera componentes React premium que copiás y pegás en tu Next.js existente. Lovable crearía un proyecto nuevo, no integra a uno existente fácilmente','Carrd','Webflow'], 1, 0,
+     to_jsonb(ARRAY['Lovable, porque es full-stack','v0 — genera componentes React premium que copiás y pegás en tu Next.js existente. Lovable crearía un proyecto nuevo, no integra a uno existente fácilmente','Carrd','Webflow']), 1, 0,
      'v0 está pensado exactamente para este caso: dame código React + Tailwind para pegar en mi proyecto existente. Lovable es proyecto nuevo; integrarlo a uno existente es fricción. Carrd no hace apps. Webflow es visual pero no genera código React exportable para Next.js. v0 encaja perfecto.'),
     (v_lesson_id, 'Querés un portfolio personal con animaciones premium y estética editorial. ¿Qué elegís?',
-     ARRAY['Lovable','Framer — es la herramienta líder en estética premium con animaciones y se usa mucho en portfolios, estudios creativos y marcas donde el diseño es diferenciador','Google Docs','Excel'], 1, 0,
+     to_jsonb(ARRAY['Lovable','Framer — es la herramienta líder en estética premium con animaciones y se usa mucho en portfolios, estudios creativos y marcas donde el diseño es diferenciador','Google Docs','Excel']), 1, 0,
      'Framer es el gold standard para sitios donde el diseño y las animaciones son el diferenciador. Portafolios, estudios creativos, marcas de moda y lujo. Tiene CMS integrado, animaciones on-scroll nativas, y aesthetic por defecto mucho más refinada. Lovable es potente pero el output estético default es más "buena app" que "sitio editorial premium".'),
     (v_lesson_id, 'Un power user en 2026 usa una sola herramienta o varias?',
-     ARRAY['Solo Lovable','Combina según caso: Lovable para app completa + v0 para componentes específicos + Framer para marketing site + Claude Code para control total. Conocer fortalezas de cada una es lo que separa amateur de pro','Solo v0','Solo Framer'], 1, 0,
+     to_jsonb(ARRAY['Solo Lovable','Combina según caso: Lovable para app completa + v0 para componentes específicos + Framer para marketing site + Claude Code para control total. Conocer fortalezas de cada una es lo que separa amateur de pro','Solo v0','Solo Framer']), 1, 0,
      'Cada herramienta tiene su nicho óptimo. Los pros eligen según el trabajo: Lovable para MVP completo, v0 para componentes premium dentro de proyectos propios, Framer para marketing sites con estética, Claude Code cuando necesitás control total. No es "cuál es mejor" sino "cuál para este caso". Con el tiempo construís intuición de qué usar cuándo.');
 
   -- L4
@@ -668,13 +668,13 @@ $md$**Instala analytics + SEO en tu landing.**
 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id, '¿Cuál es la ventaja de Plausible sobre Google Analytics para alguien que recién empieza?',
-     ARRAY['Es más caro','Es simple de leer (1 pantalla te da todo lo importante) y privacy-first (no requiere cookie banner molesto) — GA4 es más potente pero curva alta y requiere consentimiento GDPR','No tiene ventajas','Es solo para apps grandes'], 1, 0,
+     to_jsonb(ARRAY['Es más caro','Es simple de leer (1 pantalla te da todo lo importante) y privacy-first (no requiere cookie banner molesto) — GA4 es más potente pero curva alta y requiere consentimiento GDPR','No tiene ventajas','Es solo para apps grandes']), 1, 0,
      'Plausible fue construido pensando en "dame lo esencial en 1 vistazo". Visitas, páginas, fuentes, conversión, bounce. En 30 segundos entendés qué pasa. GA4 es más potente pero requiere entender audiences, events, conversions y varias vistas — curva empinada. Al inicio lo simple gana. Cuando escalés, podés migrar a GA4 si hace falta.'),
     (v_lesson_id, '¿Por qué importa el Open Graph tag og:image en tu landing?',
-     ARRAY['No importa','Controla la imagen que aparece cuando alguien comparte tu link en WhatsApp, Twitter, LinkedIn — una buena imagen genera hasta 3x más clicks vs preview genérico','Solo para SEO','Para que Google te rankee'], 1, 0,
+     to_jsonb(ARRAY['No importa','Controla la imagen que aparece cuando alguien comparte tu link en WhatsApp, Twitter, LinkedIn — una buena imagen genera hasta 3x más clicks vs preview genérico','Solo para SEO','Para que Google te rankee']), 1, 0,
      'Cuando pegás un link en WhatsApp/Twitter/LinkedIn/Slack, aparece un preview con imagen + título + descripción. Sin og:image custom el preview es texto plano o una imagen genérica que no invita click. Una imagen bien diseñada (1200x630 ideal) sube el click-through rate significativamente. Es de las primeras optimizaciones ROI-positivas para cualquier landing.'),
     (v_lesson_id, 'Tenés <200 visitas al mes. ¿Deberías hacer A/B testing?',
-     ARRAY['Sí, siempre testear','No — con <200 visitas los datos son no-concluyentes (significancia estadística requiere cientos o miles de muestras). Enfocate primero en traer tráfico, después iterar con A/B','A/B siempre por obligación','Solo si pagas por herramientas caras'], 1, 0,
+     to_jsonb(ARRAY['Sí, siempre testear','No — con <200 visitas los datos son no-concluyentes (significancia estadística requiere cientos o miles de muestras). Enfocate primero en traer tráfico, después iterar con A/B','A/B siempre por obligación','Solo si pagas por herramientas caras']), 1, 0,
      'A/B testing requiere volumen para ser significativo. Con 100 visitas dividas en 2 variantes tenés 50 por versión: un solo click de diferencia te cambia la conclusión. Resultado: decisiones basadas en ruido. La prioridad con tráfico bajo es TRAER TRÁFICO (social, comunidades, SEO, ads chicos). Cuando tengas >500-1000 visitas/mes, ahí sí A/B empieza a dar conclusiones fiables.');
 
   RAISE NOTICE 'Módulo "Landing en 10 min": 4 lecciones + 12 quizzes insertados.';

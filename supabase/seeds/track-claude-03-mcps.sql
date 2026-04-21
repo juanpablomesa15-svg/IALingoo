@@ -116,36 +116,36 @@ $md$**Mini-investigación**: entra a [modelcontextprotocol.io/servers](https://m
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Qué es MCP?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un modelo de IA más potente que GPT-4',
        'Un estándar abierto para conectar modelos de IA a aplicaciones externas',
        'Una extensión de navegador que mejora Claude',
        'Un formato de archivo para compartir prompts'
-     ],
+     ]),
      1,
      0,
      'MCP (Model Context Protocol) es un estándar abierto creado por Anthropic en 2024. Define cómo un modelo de IA se conecta a apps externas (Gmail, Notion, tu base de datos, etc). La ventaja de que sea estándar: una vez que alguien construye un MCP para una app, cualquier IA lo puede usar.'),
 
     (v_lesson_id,
      '¿Cuál de estas cosas puede hacer Claude con un MCP instalado?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Leer tu inbox de Gmail y redactar respuestas',
        'Crear un evento en Google Calendar',
        'Consultar tu base de datos Supabase con SQL',
        'Todas las anteriores, cada una con su MCP correspondiente'
-     ],
+     ]),
      3,
      0,
      'MCP es un conector genérico. Cada app tiene su propio MCP (hay más de 200 disponibles). Una vez instalado, Claude puede hablar con esa app — leer datos, escribir, buscar, lo que el MCP exponga. Es la diferencia entre un chat "solo texto" y un asistente que actúa sobre tus herramientas reales.'),
 
     (v_lesson_id,
      'Un amigo te dice "instalé un MCP en mi Gmail". ¿Qué hay de malo con esa frase?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'MCPs no existen todavía',
        'Los MCPs se instalan en el cliente de Claude (Desktop, Code), no en la app destino (Gmail)',
        'Gmail no soporta MCPs',
        'MCP solo funciona con Outlook'
-     ],
+     ]),
      1,
      0,
      'Confusión común: el MCP es la pieza de conexión que corre en tu computador o en la nube, y se instala en el cliente donde usas Claude (Claude Desktop, Claude Code). No se instala dentro de Gmail ni de ninguna app destino. Claude usa el MCP como puente para hablar con Gmail a través de la API pública de Google.');
@@ -255,36 +255,36 @@ Obligatorios:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Al instalar el MCP de Gmail, te aparece una pantalla de Google pidiéndote autorizar permisos. ¿Qué deberías hacer?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Aceptar ciegamente, Anthropic es una empresa seria',
        'Leer los permisos — si dice "leer y enviar correos" y tú solo quieres lectura, buscar una versión más restrictiva',
        'Rechazar todos los permisos',
        'Ignorar la pantalla'
-     ],
+     ]),
      1,
      0,
      'Nunca apruebes permisos OAuth ciegamente, sin importar la empresa. Google te muestra exactamente qué le estás dando acceso. Si el MCP pide más permisos de los que necesitas para tu caso, busca una versión con permisos más restrictivos o configúralos manualmente. Esto es seguridad básica con cualquier app que se conecte a tus cuentas.'),
 
     (v_lesson_id,
      'Al instalar el MCP de Filesystem, ¿qué es lo más seguro?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Darle acceso a toda tu computadora para que pueda buscar mejor',
        'Darle acceso solo a carpetas específicas donde trabajas (ej. ~/Documents/proyectos/)',
        'No usar Filesystem, es muy riesgoso',
        'Solo darle acceso a la carpeta de Descargas'
-     ],
+     ]),
      1,
      0,
      'Filesystem expone herramientas para leer y escribir archivos. Darle acceso a toda tu máquina significa que Claude podría leer accidentalmente archivos sensibles (tokens, datos personales, fotos privadas). La regla: solo las carpetas donde trabajas con él. Nunca tu carpeta de Descargas (ahí viven todos los archivos que bajas, probablemente incluyendo cosas que no quieres que una IA lea) ni tu Home completo.'),
 
     (v_lesson_id,
      'Claude Desktop no parece usar tu MCP de Calendar aunque está instalado. ¿Qué intentas primero?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Borrar el MCP y reinstalar',
        'Reiniciar Claude Desktop y, si sigue, ser más explícito en la instrucción ("mira mi calendario y...")',
        'Cambiar a otro modelo',
        'Actualizar el sistema operativo'
-     ],
+     ]),
      1,
      0,
      'Primera causa: MCPs se cargan al arrancar, si instalaste sin reiniciar, no aparece. Segunda: a veces Claude no asume que debe usar un MCP si la instrucción es ambigua ("¿qué tengo mañana?" podría ser cualquier cosa). Ser explícito ("mira mi calendario") le da la pista para invocar la herramienta correcta.');
@@ -388,36 +388,36 @@ Al final:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Por qué combinar MCPs es más poderoso que usarlos sueltos?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Porque Claude va más rápido',
        'Porque muchas preguntas reales requieren cruzar varias fuentes (ej: email + calendario + tareas) y hacerlo manual toma minutos, con Claude toma segundos',
        'Porque ahorras en el plan de Claude',
        'Porque los MCPs sueltos no funcionan bien'
-     ],
+     ]),
      1,
      0,
      'Tu información está repartida en muchas apps. Preguntas útiles como "qué tengo mañana y con qué contexto" requieren tocar múltiples sistemas. Antes de MCP hacías ese cruce mental. Con MCP, Claude lo hace por ti y te entrega el cuadro ya integrado. El valor no está en cada MCP aislado — está en orquestarlos.'),
 
     (v_lesson_id,
      'Estás a punto de dejarle permiso "siempre aprobar" al MCP de Gmail. ¿Cuándo sería una mala idea?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Nunca es mala idea',
        'Cuando esperas que Claude envíe correos importantes sin que tú revises — mejor mantener el modo de confirmación por acción',
        'Siempre es mala idea',
        'Solo si usas Outlook en vez de Gmail'
-     ],
+     ]),
      1,
      0,
      'Leer emails es relativamente seguro. Pero "enviar" o "borrar" son acciones destructivas. Dejar "siempre aprobar" para todas las herramientas de Gmail incluye enviar. Si Claude interpreta mal una instrucción y envía algo raro a un cliente, no hay Ctrl+Z. Mejor dejarle aprobado solo read/search y mantener send bajo confirmación manual.'),
 
     (v_lesson_id,
      'Piensas pedirle a Claude "¿cómo va el proyecto X?". ¿Qué hace más útil la pregunta?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Dejarla así, Claude sabrá qué hacer',
        'Decir explícitamente qué MCPs debe usar: "mira Gmail, Notion y GitHub y dame el estado de X"',
        'No importa, el resultado es el mismo',
        'Preguntar uno por uno a cada MCP'
-     ],
+     ]),
      1,
      0,
      'Cuando hay ambigüedad, Claude puede usar los MCPs equivocados o ninguno. Darle explícitamente "usa estos 3 MCPs" elimina la adivinanza. Con el tiempo, cuando Claude conozca tu estilo y contexto (ej. vía CLAUDE.md con info del proyecto), puedes volver a las preguntas más abiertas. Pero mientras aprende tus patrones, sé explícito — el costo es mínimo y el resultado mucho mejor.');
@@ -563,36 +563,36 @@ No tienes que construirlo (aunque puedes si quieres). El objetivo es pensar uno 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuándo NO tiene sentido construir tu propio MCP?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Cuando ya existe un MCP oficial o comunitario que hace lo mismo',
        'Cuando tienes una app interna sin conector público',
        'Cuando necesitas lógica muy específica de tu negocio',
        'Cuando quieres exponer algo de tu base de datos propia'
-     ],
+     ]),
      0,
      0,
      'Si alguien ya resolvió el problema (Gmail, Calendar, Drive, Notion, etc.), úsalo. Construir algo que ya existe es trabajo desperdiciado. Los MCPs custom brillan cuando tu caso es único: una DB interna, una lógica de negocio específica, una integración con un sistema sin cobertura pública.'),
 
     (v_lesson_id,
      'Al construir un MCP que interactúa con tu base de datos, ¿cuál es una buena práctica de seguridad?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Poner las credenciales directamente en el código',
        'Guardar tokens y passwords en un archivo .env, fuera del control de versiones (git)',
        'Usar la cuenta admin de la DB',
        'No usar autenticación, más simple'
-     ],
+     ]),
      1,
      0,
      'Credenciales en el código = cualquiera que vea tu código las ve (si lo compartes, subes a GitHub, etc.). El archivo .env es la convención estándar: vive en tu máquina, los programas lo leen, pero no se sube a git (se agrega al .gitignore). Además, separar credenciales del código te deja rotarlas sin modificar el código.'),
 
     (v_lesson_id,
      'Quieres construir un MCP para tu stack, pero no eres programador experimentado. ¿Qué es lo más rápido?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Aprender 6 meses de Python primero',
        'Pedirle a Claude Code que lo construya sobre el template oficial, describiéndole las tools que quieres',
        'Esperar hasta que exista uno oficial',
        'Contratar a un dev'
-     ],
+     ]),
      1,
      0,
      'Este es el combo más poderoso de todo el curso: Claude Code construye tu MCP mientras tú conversás. Te alcanza con saber qué tools quieres exponer, con qué parámetros y qué deben devolver. Claude Code clona el template, escribe la lógica, configura y te deja probándolo en 15-20 min. Sin necesidad de ser ingeniero.');

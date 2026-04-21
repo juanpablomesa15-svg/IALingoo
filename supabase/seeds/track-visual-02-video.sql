@@ -140,36 +140,36 @@ Al final elige **1-2 herramientas** para enfocarte en este módulo. No intentes 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál es el modo más práctico y controlable en video IA?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Text-to-video — escribes un prompt y generas',
        'Image-to-video — generas primero la imagen exacta que quieres, luego la animas',
        'Video-to-video — transformas videos existentes',
        'Ninguno, todos son iguales'
-     ],
+     ]),
      1,
      0,
      'Image-to-video te da control total sobre el look final: primero generás la imagen perfecta (donde tenés 100% de control visual), y solo después le pedís a la IA que la anime. Text-to-video es más creativo pero menos predecible — muchas veces el resultado visual no coincide con lo que tenías en la cabeza. En flujos profesionales, image-to-video gana casi siempre.'),
 
     (v_lesson_id,
      'Te piden un video de una persona interactuando con otra mientras hablan durante 45 segundos con diálogo específico. ¿Va a salir bien en 2026?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Sí, fácil',
        'Difícil — múltiples personas interactuando con diálogo largo y coherente sigue fallando, mejor hacer clips cortos y editarlos, o combinar con rodaje real',
        'No se puede hacer nada con IA',
        'Depende solo del presupuesto'
-     ],
+     ]),
      1,
      0,
      'La honestidad ayuda. Paisajes, productos, acciones simples y diálogos cortos salen bien. Pero múltiples personajes interactuando con diálogo específico por 45 segundos aún falla en 2026 — inconsistencias, labios no sincronizados, momentos raros. El workaround: hacer varios clips cortos con pausas, editarlos, o combinar IA con rodaje real. Lo que nunca funciona es generar un clip único largo y esperar que todo salga bien.'),
 
     (v_lesson_id,
      'Para producir 5 versiones de un anuncio corto (15 segundos) sin rodaje costoso, ¿cuánto cuesta hoy con IA?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Miles de dólares',
        'Típicamente entre $20-100 total usando herramientas pay-per-use como Sora o Kling',
        'Gratis, no tiene costo',
        'Solo funciona si tenés equipo profesional'
-     ],
+     ]),
      1,
      0,
      'Un día de rodaje profesional cuesta $3-10k. Generar 5 versiones de 15 segundos con IA hoy: entre $20-100 dependiendo de la herramienta y del número de iteraciones. Esto no mata el rodaje profesional para proyectos grandes, pero democratizó el contenido de marketing para pequeños negocios, creadores y tests rápidos. Un emprendedor puede testear 10 variantes de un ad antes de invertir en el rodaje final.');
@@ -320,36 +320,36 @@ Piensa una micro-historia de 3 tomas (ej. alguien llega a casa, se sienta, mira 
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál es la quinta capa que se suma al prompting de video vs imagen?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Resolución',
        'Movimiento de cámara',
        'Duración en minutos',
        'Idioma del prompt'
-     ],
+     ]),
      1,
      0,
      'Video introduce el eje del tiempo, y la cámara puede moverse. Decir "dolly in slowly" o "handheld tracking shot" te da resultados cinematográficos predecibles. Si no especificás, la IA toma decisiones que muchas veces no son las que querías. Aprender vocabulario de cinematografía es una inversión pequeña con retorno enorme.'),
 
     (v_lesson_id,
      'Tu prompt pide "una persona caminando por un parque, se encuentra con amiga, se abrazan, se sientan a conversar" en 8 segundos. ¿Qué pasa?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'La IA lo hace perfectamente',
        'Intenta meter todo en 8 segundos y el resultado atropella todas las acciones — mejor dividir en 3 clips separados',
        'Solo funciona en Sora',
        'La IA rechaza el prompt'
-     ],
+     ]),
      1,
      0,
      'Error clásico. Un clip de IA funciona bien con UNA o DOS acciones claras, no con una cadena narrativa completa. Para historias más complejas: divide en clips separados, cada uno con un momento específico, luego edítalos juntos. Esto además te da más control — si un clip sale mal, regenerás solo ese.'),
 
     (v_lesson_id,
      'Quieres un clip donde el logo cerrado se abre al logo final en 3 segundos. ¿Qué herramienta/feature aprovechas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Prompt largo explicando la transición',
        'End frame / first-and-last frame: das imagen inicial + imagen final, la IA interpola el movimiento',
        'Regenerar muchas veces hasta que salga',
        'No se puede con IA'
-     ],
+     ]),
      1,
      0,
      'First/last frame (también llamado end frame o two-image) es la feature perfecta para transiciones específicas. Das la imagen donde arranca y donde termina, y la IA se encarga del movimiento intermedio. Funciona excelente para logos, transformaciones, intros. Las herramientas principales que lo tienen: Kling, Runway y en ciertos flujos Sora.');
@@ -496,36 +496,36 @@ $md$**Flujo image-to-video end-to-end.**
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Por qué image-to-video es más predecible que text-to-video?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Porque es gratis',
        'Porque desacoplás la generación del look (en la imagen) de la generación del movimiento (en el video), pudiendo iterar cada paso por separado',
        'Porque las herramientas son mejores',
        'Porque el resultado es más rápido'
-     ],
+     ]),
      1,
      0,
      'En text-to-video la IA resuelve dos problemas simultáneos: composición visual y movimiento. Si uno falla, el clip entero no sirve. En image-to-video primero consolidás la imagen (una iteración), y después solo peleás con el movimiento (otra iteración). Cada paso es controlable. Los profesionales casi siempre trabajan así porque el resultado se parece mucho más a la idea original.'),
 
     (v_lesson_id,
      'Para un promo de 30 segundos con 6 tomas distintas del mismo personaje, ¿qué haces para mantener consistencia?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Generar un solo clip de 30 segundos',
        'Generar 6 imágenes del personaje usando character reference (--cref o equivalente), y hacer image-to-video de cada una',
        'Hacer rodaje real',
        'No es posible, el personaje siempre va a cambiar'
-     ],
+     ]),
      1,
      0,
      'Clips largos (30s) suelen inventar cosas y perder consistencia. El patrón que funciona: 6 imágenes consistentes usando character reference de una imagen base, luego animar cada una individualmente (5s x 6 = 30s), y editarlas juntas. Como las 6 imágenes base ya son consistentes, los 6 clips mantienen al mismo personaje.'),
 
     (v_lesson_id,
      'Necesitas un clip con un personaje hablando y diciendo una frase específica con lip sync. ¿Qué herramienta usas en 2026?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Cualquier modelo antiguo, todos lo hacen bien',
        'Veo 3 de Google — es el mejor modelo hoy para lip sync con audio sincronizado',
        'Solo se puede con rodaje real',
        'Midjourney'
-     ],
+     ]),
      1,
      0,
      'Veo 3 (lanzado en 2025-2026) es el primer modelo que hace lip sync aceptable sincronizado con audio generado. Para diálogos cortos en planos cerrados funciona bien. Los otros modelos (Sora, Kling, Luma) están enfocados más en movimiento visual que en diálogo sincronizado. Midjourney hace solo imágenes estáticas. Para lip sync largo y perfecto todavía rodaje real es más confiable.');
@@ -673,36 +673,36 @@ Elige un producto/servicio/idea y produce un ad completo:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'En una estructura AIDA para un ad de 30 segundos, ¿cuánto tiempo le das al hook (Atención)?',
-     ARRAY[
+     to_jsonb(ARRAY[
        '0 segundos, va directo al mensaje',
        'Los primeros 3 segundos son críticos — si no enganchas ahí, el espectador hace scroll en Reels/TikTok',
        'La mitad del video',
        'Solo el final'
-     ],
+     ]),
      1,
      0,
      'En formatos de scroll vertical (Reels, TikTok, Shorts) los primeros 3 segundos deciden si el espectador se queda o pasa. Por eso la "A" de AIDA (Atención) es el arranque y es crítica. Un hook potente visual, una pregunta provocadora o un movimiento inesperado. Si lo primero es lento o genérico, el resto del ad no importa — nadie lo ve.'),
 
     (v_lesson_id,
      '¿Qué es un storyboard y por qué hacerlo ANTES de generar videos?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Un dibujo opcional, no sirve mucho',
        'El plan visual del video (qué se ve, cuándo, con qué cámara). Hacerlo antes evita perder tiempo generando tomas que no suman a la narrativa',
        'Es solo para proyectos grandes',
        'Solo lo hacen los directores de cine'
-     ],
+     ]),
      1,
      0,
      'Sin storyboard vas generando al azar, a ver qué sale. Resultado: 20 clips bonitos que no cuentan nada. Con storyboard primero definís la narrativa (qué se ve cuándo y con qué cámara) y después producís exactamente eso. Ahorra tiempo y plata (cada generación IA cuesta). El storyboard puede ser simple — una tabla de texto alcanza, no necesitás dibujar.'),
 
     (v_lesson_id,
      'Tu ad IA queda decente pero no "brillante". ¿Qué suele marcar la diferencia entre decente y brillante?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Solo herramientas más caras',
        'Música bien elegida con cortes en los beats + edición (transiciones, ritmo, CTA claro) — la generación IA es 60%, el post-production es el 40% que separa decente de brillante',
        'Mayor resolución',
        'Usar Photoshop'
-     ],
+     ]),
      1,
      0,
      'La generación IA te da material crudo. Lo que lo convierte en un ad que la gente mira es: (1) música elegida con intención + cortes sincronizados con beats, (2) transiciones bien diseñadas, (3) ritmo general (no todo al mismo pulso), (4) un CTA claro y con peso visual. Dedica 1/3 del tiempo total del proyecto al post-production. Es donde todo se decide.');
