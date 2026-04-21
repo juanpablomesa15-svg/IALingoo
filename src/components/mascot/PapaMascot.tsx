@@ -51,9 +51,10 @@ const SHADOW: Record<MascotState, string> = {
   proud:       'papa-shadow-big 2.8s ease-in-out infinite',
 };
 
-// Egg/pebble silhouette — slightly tapered top, rounded bottom
+// Rounded-square silhouette — matches PapaLogo proportions (rx ≈ 42% of width)
+// Bounding box: 32,38 → 168,214 (136 wide × 176 tall), corner radius 58
 const BODY_PATH =
-  'M 100 38 C 148 38 168 80 168 130 C 168 184 140 214 100 214 C 60 214 32 184 32 130 C 32 80 52 38 100 38 Z';
+  'M 90 38 H 110 A 58 58 0 0 1 168 96 V 156 A 58 58 0 0 1 110 214 H 90 A 58 58 0 0 1 32 156 V 96 A 58 58 0 0 1 90 38 Z';
 
 export default function PapaMascot({
   state = 'normal',
