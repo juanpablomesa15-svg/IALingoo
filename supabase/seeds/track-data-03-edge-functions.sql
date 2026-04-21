@@ -563,12 +563,12 @@ Programar una EF que corra cada 6h:
 SELECT cron.schedule(
   'daily-digest',          -- nombre
   '0 */6 * * *',           -- cron expression: cada 6h en punto
-  $$
+  $cron$
     SELECT net.http_post(
       url := 'https://xxx.supabase.co/functions/v1/daily-digest',
       headers := '{"Authorization": "Bearer SERVICE_ROLE_KEY"}'::jsonb
     );
-  $$
+  $cron$
 );
 ```
 
