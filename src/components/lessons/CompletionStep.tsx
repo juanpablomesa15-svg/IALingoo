@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Trophy, ArrowRight, Home, Sparkles } from 'lucide-react';
 import PapaMascot from '@/components/mascot/PapaMascot';
 import Confetti from '@/components/effects/Confetti';
+import LevelUpModal from '@/components/effects/LevelUpModal';
 import { sounds } from '@/lib/utils/sounds';
 import type { Achievement } from '@/lib/types/database';
 
@@ -16,6 +17,7 @@ interface CompletionStepProps {
   totalQuestions: number;
   newAchievements: Achievement[];
   nextLessonId: number | null;
+  leveledUpTo?: number | null;
 }
 
 export default function CompletionStep({
@@ -26,9 +28,11 @@ export default function CompletionStep({
   totalQuestions,
   newAchievements,
   nextLessonId,
+  leveledUpTo,
 }: CompletionStepProps) {
   const [animatedXP, setAnimatedXP] = useState(0);
   const [showContent, setShowContent] = useState(false);
+  const [showLevelUp, setShowLevelUp] = useState<boolean>(Boolean(leveledUpTo));
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 300);
@@ -66,6 +70,12 @@ export default function CompletionStep({
 
   return (
     <div className="flex flex-col items-center min-h-[calc(100dvh-10rem)] pb-6">
+      {showLevelUp && leveledUpTo && (
+        <LevelUpModal
+          level={leveledUpTo}
+          onDismiss={() => setShowLevelUp(false)}
+        />
+      )}
       <Confetti />
       {/* Celebration header with mascot */}
       <div

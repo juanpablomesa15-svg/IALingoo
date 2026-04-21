@@ -57,6 +57,8 @@ export default async function DashboardPage() {
       <DashboardMascot
         currentStreak={streak?.current_streak ?? 0}
         lastActivityDate={streak?.last_activity_date ?? null}
+        lessonsCompleted={completedLessonIds.size}
+        userName={displayName}
       />
 
       {/* Greeting */}

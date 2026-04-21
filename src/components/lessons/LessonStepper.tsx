@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { checkNewAchievements } from '@/lib/utils/achievements';
+import { getLevelFromXP } from '@/lib/utils/xp';
 import TheoryStep from './TheoryStep';
 import PracticalTaskStep from './PracticalTaskStep';
 import QuizStep from './QuizStep';
@@ -84,6 +85,7 @@ export default function LessonStepper({
     totalXP: number;
     currentStreak: number;
     newAchievements: Achievement[];
+    leveledUpTo: number | null;
   } | null>(null);
   const [isCompleting, setIsCompleting] = useState(false);
 
@@ -187,11 +189,17 @@ export default function LessonStepper({
         await supabase.from('achievements_unlocked').insert(unlocks);
       }
 
+      const previousXP = Math.max(0, totalXP - xpEarned);
+      const oldLevel = getLevelFromXP(previousXP);
+      const newLevel = getLevelFromXP(totalXP);
+      const leveledUpTo = newLevel > oldLevel ? newLevel : null;
+
       setCompletionData({
         xpEarned,
         totalXP,
         currentStreak,
         newAchievements,
+        leveledUpTo,
       });
     } catch (err) {
       console.error('Error in lesson completion:', err);
@@ -200,6 +208,7 @@ export default function LessonStepper({
         totalXP: 0,
         currentStreak: 0,
         newAchievements: [],
+        leveledUpTo: null,
       });
     } finally {
       setIsCompleting(false);
@@ -327,11 +336,17 @@ export default function LessonStepper({
       await supabase.from('achievements_unlocked').insert(unlocks);
     }
 
+    const previousXP = profile?.total_xp ?? 0;
+    const oldLevel = getLevelFromXP(previousXP);
+    const newLevel = getLevelFromXP(newXP);
+    const leveledUpTo = newLevel > oldLevel ? newLevel : null;
+
     setCompletionData({
       xpEarned: lesson.xp_reward,
       totalXP: newXP,
       currentStreak,
       newAchievements,
+      leveledUpTo,
     });
   }
 
@@ -411,6 +426,7 @@ export default function LessonStepper({
               totalQuestions={quizzes.length}
               newAchievements={completionData.newAchievements}
               nextLessonId={nextLessonId}
+              leveledUpTo={completionData.leveledUpTo}
             />
           )}
         </>

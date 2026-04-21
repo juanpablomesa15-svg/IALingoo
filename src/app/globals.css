@@ -224,6 +224,28 @@ body {
 }
 .mascot-bubble { animation: mascot-bubble-in 0.4s ease-out; }
 
+/* ===== Streak flame animations ===== */
+@keyframes streak-flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50%      { transform: scale(1.08) rotate(2deg); }
+}
+@keyframes streak-flicker-strong {
+  0%, 100% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 6px rgba(251,146,60,0.5)); }
+  50%      { transform: scale(1.14) rotate(4deg); filter: drop-shadow(0 0 12px rgba(251,146,60,0.85)); }
+}
+@keyframes streak-ember {
+  0%   { transform: translate(-50%, 0) scale(1); opacity: 0.9; }
+  100% { transform: translate(-50%, -22px) scale(0.2); opacity: 0; }
+}
+@keyframes streak-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(251,146,60,0.55); }
+  100% { box-shadow: 0 0 0 14px rgba(251,146,60,0); }
+}
+.streak-flame { animation: streak-flicker 1.4s ease-in-out infinite; }
+.streak-flame-strong { animation: streak-flicker-strong 1s ease-in-out infinite; }
+.streak-ember { animation: streak-ember 1.6s ease-out infinite; }
+.streak-ring { animation: streak-ring 2s ease-out infinite; }
+
 /* ===== Confetti particles ===== */
 @keyframes confetti-fall {
   0% {
