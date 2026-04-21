@@ -626,7 +626,7 @@ Esto combina **todo** el módulo: MCP, subagentes, checkpoints, tools, memoria.
    ┌───────┼───────────┬─────────┬──────────┐
    ▼       ▼           ▼         ▼          ▼
 [W1]    [W2]        [W3]       [W4]       [W5]
-Competi Pricing     Tracción   VC/$$      Tendencias
+Competi Pricing     Tracción   Inversión  Tendencias
  dores                         Riesgos
    │       │           │         │          │
    │   (cada worker: Haiku + brave-search + fetch-url + memory)
