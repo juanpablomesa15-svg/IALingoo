@@ -153,36 +153,36 @@ Descarga [Antigravity](https://antigravity.google/) — ábrelo, crea o abre una
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      '¿Cuál es la diferencia principal entre Claude.ai y Claude Code?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Claude Code es más barato',
        'Claude Code ejecuta acciones reales (lee/escribe archivos, corre comandos), Claude.ai solo habla',
        'Claude Code usa un modelo diferente y más inteligente',
        'Son lo mismo, solo cambia el nombre'
-     ],
+     ]),
      1,
      0,
      'Claude.ai es conversación — te dice qué hacer. Claude Code es un agente — lo hace él mismo en tu proyecto. Usan los mismos modelos Claude 4.X por debajo; la magia está en las herramientas que tiene Claude Code para actuar: leer archivos, escribir archivos, correr comandos, hacer commits.'),
 
     (v_lesson_id,
      'Si nunca has usado una terminal y te intimida el texto negro con comandos, ¿cuál deberías elegir para empezar?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Claude Code CLI — es más rápido',
        'Antigravity (el IDE con Claude integrado) — curva de aprendizaje más amable',
        'Claude.ai — no necesitas Claude Code',
        'Esperar hasta aprender a usar la terminal'
-     ],
+     ]),
      1,
      0,
      'Antigravity vive en un editor visual con ventanas, como cualquier app normal. Tienes el chat al lado de tu código. Cuando te sientas cómodo puedes cambiar al CLI, que es más veloz pero exige familiaridad con la terminal.'),
 
     (v_lesson_id,
      '¿Qué plan de Claude necesitas como mínimo para usar Claude Code cómodamente?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Plan Free',
        'Plan Pro ($20/mes), aunque Max da mejor experiencia para uso diario',
        'Solo funciona con API key',
        'Plan Enterprise'
-     ],
+     ]),
      1,
      0,
      'Claude Code no funciona con Free. Pro es el mínimo realista y te sirve para proyectos pequeños. Si lo usas todos los días, Max te va a dar más margen sin preocuparte por los límites. También puedes usarlo con una API key pagando por uso — sirve para probar, pero sale caro si lo usas seguido.');
@@ -330,36 +330,36 @@ Pasos:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Estás a punto de pedirle a Claude Code que construya una app. ¿Cuál de estas peticiones te va a dar mejor resultado?',
-     ARRAY[
+     to_jsonb(ARRAY[
        '"Hazme una todo list"',
        '"Hazme una app bonita"',
        '"Quiero una app de todo list con caja de texto, botón agregar, checkbox por tarea, que persista en localStorage, usando Next.js y Tailwind, diseño limpio y colores suaves"',
        '"Inicia un proyecto"'
-     ],
+     ]),
      2,
      0,
      'La receta es siempre la misma: qué quieres ver (UI) + qué comportamiento (lógica) + qué restricciones (stack + simplicidad). Los tres juntos le dan a Claude Code suficiente para entregar algo usable sin preguntarte 10 veces. "Hazme una todo list" es tan abierto que va a empezar a preguntar cosas básicas que tú puedes decidir de una.'),
 
     (v_lesson_id,
      '¿Qué hace el archivo CLAUDE.md en tu proyecto?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Es documentación para otros desarrolladores',
        'Le da a Claude Code contexto persistente del proyecto entre sesiones',
        'Es un archivo obligatorio que Claude Code crea solo',
        'Sirve para guardar el historial del chat'
-     ],
+     ]),
      1,
      0,
      'CLAUDE.md es un archivo de texto en la raíz que Claude Code lee automáticamente cada vez que inicias sesión. Sirve para anotar el stack del proyecto, convenciones, decisiones pasadas y cualquier cosa que Claude debería saber sin que tú se lo repitas. Para proyectos que duran más de una sesión, es la diferencia entre empezar desde cero cada día o seguir donde lo dejaste.'),
 
     (v_lesson_id,
      'Claude Code está en medio de generar 4 archivos de tu app. Tú lo cortas para preguntarle algo. ¿Qué pasa?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Guarda el progreso y reanuda cuando responda tu pregunta',
        'Puede dejar archivos a medias y la app queda inconsistente — mejor dejarlo terminar y luego preguntar',
        'Cancela todo y empieza desde cero',
        'Te reprende por interrumpirlo'
-     ],
+     ]),
      1,
      0,
      'Claude Code trabaja en pasos secuenciales. Si lo interrumpes a mitad de una generación, pueden quedar archivos incompletos o inconsistentes entre sí. La regla es: déjalo terminar el paso actual, revisas el resultado, y ahí corriges o pides lo siguiente. Si de verdad necesitas cortar algo que salió mal, mejor usa plan mode (lo ves en la siguiente lección) para que planifique antes de ejecutar.');
@@ -499,48 +499,48 @@ Sobre la app que construiste en la lección anterior:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Llevas 2 horas en la misma tarea con Claude Code, la conversación está larguísima y todo se siente lento. ¿Qué comando usas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        '/clear — borra todo y empiezas de nuevo',
        '/compact — resume la conversación manteniendo el contexto importante',
        '/help — para ver opciones',
        'Cerrar Claude Code y abrirlo de nuevo'
-     ],
+     ]),
      1,
      0,
      '/compact es específicamente para esto: sigues en la misma tarea pero la conversación ya es tan larga que pesa. Resume lo hecho manteniendo el hilo. /clear es distinto — corta todo el contexto, úsalo cuando cambias de proyecto o de tema, no cuando sigues en lo mismo.'),
 
     (v_lesson_id,
      '¿Cuándo deberías usar plan mode?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Siempre, sin excepción',
        'Para tareas grandes o que toquen varios archivos — donde ejecutar sin pensar puede meterte problemas',
        'Solo para tareas muy pequeñas',
        'Plan mode es opcional, no cambia mucho'
-     ],
+     ]),
      1,
      0,
      'Plan mode brilla en tareas donde el costo de ejecutar mal es alto: agregar autenticación, refactorizar módulos grandes, tocar la base de datos. Para un cambio de color o un botón nuevo, es excesivo — la ejecución directa es más rápida. La regla práctica: si la tarea puede dañar algo que ya funciona, planifica primero.'),
 
     (v_lesson_id,
      'Estás editando un proyecto de un cliente real en producción. ¿Qué modo de permisos deberías usar?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Bypass Permissions para ir más rápido',
        'Accept Edits para no molestar con tantas preguntas',
        'Ask (default) para tener control sobre cada acción destructiva',
        'Cualquiera, no importa'
-     ],
+     ]),
      2,
      0,
      'En proyectos sensibles — producción, código de cliente, bases de datos reales — quédate en Ask. Te va a preguntar antes de cada acción con riesgo y eso te da la oportunidad de parar si algo no te suena. Accept Edits acelera pero en producción un archivo mal modificado puede romper algo. Bypass es solo para automatizaciones muy acotadas donde sabes exactamente qué va a hacer.'),
 
     (v_lesson_id,
      'Quieres crear un atajo personalizado para "revisar cambios con git status y hacer commit con mensaje descriptivo". ¿Dónde lo guardas?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'En el archivo CLAUDE.md',
        'Como un archivo .md dentro de .claude/commands/ de tu proyecto',
        'No se puede, solo Anthropic crea slash commands',
        'Como variable de entorno'
-     ],
+     ]),
      1,
      0,
      'Los custom slash commands son archivos .md en la carpeta .claude/commands/ de tu proyecto (o en tu home ~/.claude/commands/ si los quieres disponibles en todos los proyectos). Cada archivo tiene frontmatter con descripción y el cuerpo son las instrucciones. Cuando escribes /nombre-del-archivo, Claude ejecuta esas instrucciones. Ideal para workflows repetidos de tu equipo.');
@@ -694,36 +694,36 @@ Sobre la app que ya construiste:
   INSERT INTO quizzes (lesson_id, question, options, correct_index, order_index, explanation) VALUES
     (v_lesson_id,
      'Quieres cambiar un color de marca que aparece en 15 archivos de tu proyecto. ¿Cómo lo haces con Claude Code?',
-     ARRAY[
+     to_jsonb(ARRAY[
        'Abrir cada archivo y editar a mano',
        'Decirle en lenguaje natural: "Reemplaza el color #X por la variable Y en toda la carpeta components/", y él lo hace en todos los archivos',
        'Solo puede modificar un archivo a la vez',
        'Tienes que escribir un script para cambiar los 15'
-     ],
+     ]),
      1,
      0,
      'Operar sobre múltiples archivos simultáneamente es uno de los superpoderes de Claude Code. Busca, lista los archivos afectados, te los muestra, ejecuta el cambio sistemáticamente y te entrega un resumen. Es sustancialmente más rápido y con menos errores humanos que hacerlo a mano, y también que con buscar-y-reemplazar de editor — porque Claude entiende contexto (no reemplaza el color si está dentro de un comentario, por ejemplo).'),
 
     (v_lesson_id,
      'Tu app tiene un bug raro. ¿Cuál es el mejor prompt para atacarlo con Claude Code?',
-     ARRAY[
+     to_jsonb(ARRAY[
        '"Arréglalo"',
        '"Algo falla"',
        '"Cuando hago X pasa Y, pero yo esperaba Z. Antes de tocar código, dame 3 hipótesis de qué puede estar mal"',
        '"Reescribe toda la app"'
-     ],
+     ]),
      2,
      0,
      'El patrón "describe síntoma + pide hipótesis antes de actuar" es oro. Evita que Claude Code salga corriendo a arreglar la primera cosa que ve (que puede no ser el problema real) y te enseña a pensar como un ingeniero: primero diagnóstico, luego tratamiento. Un debugging bien conducido toma la mitad del tiempo que uno donde cambias código a ciegas.'),
 
     (v_lesson_id,
      'Al hacer refactor grande, ¿qué instrucción es crítica que le des a Claude Code?',
-     ARRAY[
+     to_jsonb(ARRAY[
        '"Optimiza todo lo que puedas mientras refactorizas"',
        '"No cambies comportamiento — solo reorganiza"',
        '"Cambia todo a tu estilo preferido"',
        'Ninguna instrucción especial, él sabe qué hacer'
-     ],
+     ]),
      1,
      0,
      'Un refactor por definición reorganiza sin alterar qué hace la app. Si no se lo dices explícitamente, Claude Code a veces "aprovecha" para optimizar — cambia nombres, elimina cosas que parecen redundantes, reescribe lógica — y eso introduce bugs donde antes no había. La regla de oro: "refactoriza sin cambiar comportamiento", y si hay tests, "corre los tests después para verificar".');
