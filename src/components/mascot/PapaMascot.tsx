@@ -148,7 +148,11 @@ export default function PapaMascot({
                 undefined
               }>
 
-                {/* ── Body (egg silhouette) ── */}
+                {/* ── Ears (behind body) ── */}
+                <circle cx={26} cy={118} r={14} fill={p.dk} />
+                <circle cx={174} cy={118} r={14} fill={p.dk} />
+
+                {/* ── Body (rounded-square silhouette) ── */}
                 <path d={BODY_PATH} fill={`url(#b${uid})`} />
 
                 {/* ── Body highlight (glass sheen) ── */}
