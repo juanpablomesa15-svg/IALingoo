@@ -1,0 +1,90 @@
+<svg viewBox="0 0 512 512" width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bodyGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#2563EB" />
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <radialGradient id="antennaGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FBBF24" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="sheen" cx="35%" cy="25%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="white" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background: rounded square for app icon -->
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)" />
+
+  <!-- Subtle grid pattern on background -->
+  <g opacity="0.03" stroke="white" stroke-width="1">
+    <line x1="0" y1="128" x2="512" y2="128" />
+    <line x1="0" y1="256" x2="512" y2="256" />
+    <line x1="0" y1="384" x2="512" y2="384" />
+    <line x1="128" y1="0" x2="128" y2="512" />
+    <line x1="256" y1="0" x2="256" y2="512" />
+    <line x1="384" y1="0" x2="384" y2="512" />
+  </g>
+
+  <!-- Bot shadow -->
+  <ellipse cx="256" cy="438" rx="90" ry="14" fill="black" opacity="0.2" />
+
+  <!-- Antenna stem -->
+  <rect x="244" y="82" width="24" height="58" rx="12" fill="#1D4ED8" />
+
+  <!-- Antenna glow -->
+  <circle cx="256" cy="72" r="36" fill="url(#antennaGlow)" />
+
+  <!-- Antenna orb -->
+  <circle cx="256" cy="72" r="22" fill="#FBBF24" />
+  <circle cx="249" cy="64" r="7" fill="white" opacity="0.5" />
+
+  <!-- Left ear -->
+  <circle cx="118" cy="262" r="32" fill="#1D4ED8" />
+  <circle cx="118" cy="262" r="18" fill="#1E40AF" />
+
+  <!-- Right ear -->
+  <circle cx="394" cy="262" r="32" fill="#1D4ED8" />
+  <circle cx="394" cy="262" r="18" fill="#1E40AF" />
+
+  <!-- Body capsule -->
+  <rect x="126" y="132" width="260" height="296" rx="110" fill="url(#bodyGrad)" />
+
+  <!-- Body sheen -->
+  <rect x="126" y="132" width="260" height="296" rx="110" fill="url(#sheen)" />
+
+  <!-- Screen panel -->
+  <rect x="158" y="196" width="196" height="186" rx="48"
+    fill="white" opacity="0.07"
+    stroke="white" stroke-width="2" stroke-opacity="0.1" />
+
+  <!-- Left eye white -->
+  <ellipse cx="218" cy="268" rx="32" ry="34" fill="white" />
+  <!-- Left pupil -->
+  <ellipse cx="218" cy="272" rx="22" ry="24" fill="#0F172A" />
+  <!-- Left eye shine -->
+  <circle cx="209" cy="258" r="9" fill="white" opacity="0.9" />
+  <circle cx="225" cy="278" r="4" fill="white" opacity="0.4" />
+
+  <!-- Right eye white -->
+  <ellipse cx="294" cy="268" rx="32" ry="34" fill="white" />
+  <!-- Right pupil -->
+  <ellipse cx="294" cy="272" rx="22" ry="24" fill="#0F172A" />
+  <!-- Right eye shine -->
+  <circle cx="285" cy="258" r="9" fill="white" opacity="0.9" />
+  <circle cx="301" cy="278" r="4" fill="white" opacity="0.4" />
+
+  <!-- Smile -->
+  <path d="M218,340 Q256,380 294,340" stroke="white" stroke-width="8"
+    fill="none" stroke-linecap="round" opacity="0.85" />
+
+  <!-- Cheek blush left -->
+  <ellipse cx="188" cy="320" rx="18" ry="10" fill="#F472B6" opacity="0.2" />
+  <!-- Cheek blush right -->
+  <ellipse cx="324" cy="320" rx="18" ry="10" fill="#F472B6" opacity="0.2" />
+</svg>
