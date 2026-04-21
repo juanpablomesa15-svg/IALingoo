@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { ChevronRight, CheckCircle2, XCircle } from 'lucide-react';
 import PapaMascot from '@/components/mascot/PapaMascot';
 import type { MascotState } from '@/components/mascot/PapaMascot';
+import Confetti from '@/components/effects/Confetti';
+import { sounds } from '@/lib/utils/sounds';
 import type { Quiz } from '@/lib/types/database';
 
 interface QuizStepProps {
@@ -24,6 +26,7 @@ export default function QuizStep({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);
   const [mascotState, setMascotState] = useState<MascotState>('thinking');
+  const [burst, setBurst] = useState(0);
 
   const options: string[] = typeof quiz.options === 'string'
     ? JSON.parse(quiz.options)
@@ -34,6 +37,8 @@ export default function QuizStep({
   // Reset mascot state when quiz changes
   useEffect(() => {
     setMascotState('thinking');
+    setSelectedIndex(null);
+    setAnswered(false);
   }, [quiz.id]);
 
   function handleSelect(index: number) {
@@ -42,6 +47,13 @@ export default function QuizStep({
     setAnswered(true);
     const correct = index === quiz.correct_index;
     onAnswer(index, correct);
+
+    if (correct) {
+      sounds.correct();
+      setBurst((b) => b + 1);
+    } else {
+      sounds.wrong();
+    }
 
     // Show reaction, then return to thinking after 2s
     setMascotState(correct ? 'celebrating' : 'oops');
@@ -74,6 +86,7 @@ export default function QuizStep({
 
   return (
     <div className="flex flex-col min-h-[calc(100dvh-10rem)]">
+      {burst > 0 && <Confetti key={burst} duration={1500} />}
       <div className="flex-1 overflow-y-auto pb-6">
         {/* Progress indicator */}
         <div className="flex items-center gap-2 mb-6">

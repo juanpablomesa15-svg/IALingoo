@@ -3,6 +3,7 @@
 import { Star } from 'lucide-react';
 import { getXPForCurrentLevel, getLevelTitle } from '@/lib/utils/xp';
 import ProgressBar from '@/components/ui/ProgressBar';
+import CountUp from '@/components/effects/CountUp';
 
 interface XPBarProps {
   totalXP: number;
@@ -26,7 +27,9 @@ export default function XPBar({ totalXP, currentLevel }: XPBarProps) {
           </div>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold text-primary">{totalXP.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-primary">
+            <CountUp to={totalXP} durationMs={1400} />
+          </p>
           <p className="text-xs text-text-secondary">XP total</p>
         </div>
       </div>

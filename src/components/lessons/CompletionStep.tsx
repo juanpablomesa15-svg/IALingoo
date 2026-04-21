@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Trophy, ArrowRight, Home, Sparkles } from 'lucide-react';
 import PapaMascot from '@/components/mascot/PapaMascot';
 import Confetti from '@/components/effects/Confetti';
+import { sounds } from '@/lib/utils/sounds';
 import type { Achievement } from '@/lib/types/database';
 
 interface CompletionStepProps {
@@ -31,8 +32,15 @@ export default function CompletionStep({
 
   useEffect(() => {
     const timer = setTimeout(() => setShowContent(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
+    const soundTimer = setTimeout(() => {
+      if (newAchievements.length > 0) sounds.levelUp();
+      else sounds.correct();
+    }, 250);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(soundTimer);
+    };
+  }, [newAchievements.length]);
 
   useEffect(() => {
     if (!showContent) return;
@@ -67,7 +75,7 @@ export default function CompletionStep({
       >
         <div className="flex justify-center mb-3">
           <PapaMascot
-            state="celebrating"
+            state={newAchievements.length > 0 ? 'proud' : 'celebrating'}
             size="xl"
             message={`¡Increíble! +${xpEarned} XP ganados`}
           />

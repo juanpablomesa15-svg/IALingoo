@@ -38,7 +38,7 @@ export default function LoginPage() {
         {/* Mascot and title */}
         <div className="text-center space-y-4">
           <div className="flex justify-center">
-            <PapaMascot state="normal" size="xl" message="¡Hola! Soy Lingo, tu guía" />
+            <PapaMascot state="waving" size="xl" message="¡Hola! Soy Lingo, tu guía" />
           </div>
           <div>
             <h1 className="text-4xl font-bold text-white tracking-tight">
