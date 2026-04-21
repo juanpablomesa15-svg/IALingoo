@@ -10,12 +10,27 @@ export interface Profile {
   last_active_at: string;
 }
 
+export interface Track {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  icon_name: string;
+  color_hex: string;
+  order_index: number;
+  is_required: boolean;
+  is_locked: boolean;
+}
+
 export interface Module {
   id: number;
+  track_id: number | null;
   title: string;
   description: string;
   order_index: number;
   icon_name: string;
+  color_hex: string | null;
+  level: number;
   is_locked: boolean;
 }
 
@@ -101,6 +116,12 @@ export interface LessonWithProgress extends Lesson {
 export interface ModuleWithLessons extends Module {
   lessons: LessonWithProgress[];
   completedCount: number;
+}
+
+export interface TrackWithProgress extends Track {
+  modules: ModuleWithLessons[];
+  totalLessons: number;
+  completedLessons: number;
 }
 
 // RPC response types

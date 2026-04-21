@@ -1,15 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, Lock, Sparkles, Hammer, Zap, Bot, Rocket, type LucideIcon } from 'lucide-react';
-
-const iconMap: Record<string, LucideIcon> = {
-  sparkles: Sparkles,
-  hammer: Hammer,
-  zap: Zap,
-  bot: Bot,
-  rocket: Rocket,
-};
+import { ChevronDown, Lock } from 'lucide-react';
+import TrackIcon from './TrackIcon';
 import LessonItem from './LessonItem';
 import ProgressBar from '@/components/ui/ProgressBar';
 import type { ModuleWithLessons } from '@/lib/types/database';
@@ -24,6 +17,7 @@ export default function ModuleCard({ module, defaultOpen = false }: ModuleCardPr
   const totalLessons = module.lessons.length;
   const progress = totalLessons > 0 ? (module.completedCount / totalLessons) * 100 : 0;
   const isLocked = module.is_locked;
+  const accent = module.color_hex ?? '#6366F1';
 
   return (
     <div
@@ -42,14 +36,18 @@ export default function ModuleCard({ module, defaultOpen = false }: ModuleCardPr
         }`}
       >
         <div
-          className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-2xl ${
-            isLocked ? 'bg-gray-200' : 'bg-primary/10'
-          }`}
+          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+          style={
+            isLocked
+              ? { backgroundColor: '#E5E7EB', color: '#9CA3AF' }
+              : { backgroundColor: `${accent}18`, color: accent }
+          }
         >
-          {isLocked ? <Lock className="w-5 h-5 text-gray-400" /> : (() => {
-            const Icon = iconMap[module.icon_name];
-            return Icon ? <Icon className="w-6 h-6 text-primary" /> : <span className="text-2xl">{module.icon_name}</span>;
-          })()}
+          {isLocked ? (
+            <Lock className="w-5 h-5" />
+          ) : (
+            <TrackIcon name={module.icon_name} size={24} strokeWidth={2.2} />
+          )}
         </div>
 
         <div className="flex-1 min-w-0">
@@ -74,9 +72,14 @@ export default function ModuleCard({ module, defaultOpen = false }: ModuleCardPr
               />
             </div>
           )}
+          {!isLocked && totalLessons === 0 && (
+            <p className="mt-2 text-xs font-medium text-text-secondary/70">
+              Lecciones en producción
+            </p>
+          )}
         </div>
 
-        {!isLocked && (
+        {!isLocked && totalLessons > 0 && (
           <ChevronDown
             className={`w-5 h-5 text-gray-400 shrink-0 transition-transform duration-200 ${
               isOpen ? 'rotate-180' : ''
@@ -86,12 +89,9 @@ export default function ModuleCard({ module, defaultOpen = false }: ModuleCardPr
       </button>
 
       {/* Lessons list */}
-      {isOpen && !isLocked && (
+      {isOpen && !isLocked && totalLessons > 0 && (
         <div className="border-t border-border">
           {module.lessons.map((lesson, index) => {
-            // A lesson is available if:
-            // - it's the first lesson and not completed, OR
-            // - the previous lesson is completed and this one isn't
             const isAvailable =
               lesson.status !== 'completed' &&
               (index === 0 || module.lessons[index - 1].status === 'completed');

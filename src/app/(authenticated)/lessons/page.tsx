@@ -1,63 +1,67 @@
 import { createClient } from '@/lib/supabase/server';
-import ModuleCard from '@/components/lessons/ModuleCard';
-import { buildModulesWithProgress } from '@/lib/utils/lessons';
+import TrackCard from '@/components/lessons/TrackCard';
+import { buildTracksWithProgress } from '@/lib/utils/lessons';
 import type { LessonStatus } from '@/lib/types/database';
 
 export default async function LessonsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Fetch modules
-  const { data: modules } = await supabase
-    .from('modules')
-    .select('*')
-    .order('order_index', { ascending: true });
-
-  // Fetch lessons
-  const { data: lessons } = await supabase
-    .from('lessons')
-    .select('*')
-    .order('module_id', { ascending: true })
-    .order('order_index', { ascending: true });
-
-  // Fetch progress
-  const { data: progress } = await supabase
-    .from('lesson_progress')
-    .select('*')
-    .eq('user_id', user!.id);
+  const [{ data: tracks }, { data: modules }, { data: lessons }, { data: progress }] =
+    await Promise.all([
+      supabase.from('tracks').select('*').order('order_index', { ascending: true }),
+      supabase.from('modules').select('*'),
+      supabase.from('lessons').select('*'),
+      supabase
+        .from('lesson_progress')
+        .select('lesson_id, status')
+        .eq('user_id', user!.id),
+    ]);
 
   const progressMap = new Map(
     (progress || []).map((p) => [p.lesson_id, p.status as LessonStatus])
   );
 
-  // Build modules with lessons and progress using shared utility
-  const modulesWithLessons = buildModulesWithProgress(
+  const tracksWithProgress = buildTracksWithProgress(
+    tracks || [],
     modules || [],
     lessons || [],
     progressMap
   );
 
-  // First non-locked module that isn't complete should be open by default
-  const firstActiveModuleIndex = modulesWithLessons.findIndex(
-    (m) => !m.is_locked && m.completedCount < m.lessons.length
-  );
+  const requiredTrack = tracksWithProgress.find((t) => t.is_required);
+  const freeTracks = tracksWithProgress.filter((t) => !t.is_required);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text">Lecciones</h1>
-        <p className="text-text-secondary mt-1">Tu camino para dominar la IA</p>
+        <h1 className="text-2xl font-bold text-text">Aprende IA</h1>
+        <p className="mt-1 text-text-secondary">
+          Elige tu camino. Cada track es independiente — ve al que más te interese.
+        </p>
       </div>
 
-      <div className="space-y-4">
-        {modulesWithLessons.map((mod, index) => (
-          <ModuleCard
-            key={mod.id}
-            module={mod}
-            defaultOpen={index === firstActiveModuleIndex}
-          />
-        ))}
-      </div>
+      {requiredTrack && (
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-text-secondary">
+            Empieza por acá
+          </h2>
+          <TrackCard track={requiredTrack} />
+        </section>
+      )}
+
+      {freeTracks.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-text-secondary">
+            Especialízate
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {freeTracks.map((track) => (
+              <TrackCard key={track.id} track={track} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

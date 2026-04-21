@@ -1,4 +1,12 @@
-import type { LessonWithProgress, ModuleWithLessons, Module, Lesson, LessonStatus } from '@/lib/types/database';
+import type {
+  LessonWithProgress,
+  ModuleWithLessons,
+  Module,
+  Lesson,
+  LessonStatus,
+  Track,
+  TrackWithProgress,
+} from '@/lib/types/database';
 
 /**
  * Determines lesson availability based on linear progression within a module.
@@ -74,4 +82,38 @@ export function getNextLesson(
     }
   }
   return null;
+}
+
+/**
+ * Builds tracks with their modules and progress counts.
+ * Tracks are ordered by order_index; modules within a track by level then order_index.
+ */
+export function buildTracksWithProgress(
+  tracks: Track[],
+  modules: Module[],
+  lessons: Lesson[],
+  progressMap: Map<number, LessonStatus>
+): TrackWithProgress[] {
+  const modulesWithLessons = buildModulesWithProgress(modules, lessons, progressMap);
+
+  return [...tracks]
+    .sort((a, b) => a.order_index - b.order_index)
+    .map((track) => {
+      const trackModules = modulesWithLessons
+        .filter((m) => m.track_id === track.id)
+        .sort((a, b) => {
+          if (a.level !== b.level) return a.level - b.level;
+          return a.order_index - b.order_index;
+        });
+
+      const totalLessons = trackModules.reduce((sum, m) => sum + m.lessons.length, 0);
+      const completedLessons = trackModules.reduce((sum, m) => sum + m.completedCount, 0);
+
+      return {
+        ...track,
+        modules: trackModules,
+        totalLessons,
+        completedLessons,
+      };
+    });
 }
