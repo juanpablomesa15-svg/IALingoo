@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client';
 import { Sparkles, Zap, Brain } from 'lucide-react';
 import PapaMascot from '@/components/mascot/PapaMascot';
+import InstallPWAPrompt from '@/components/pwa/InstallPWAPrompt';
 
 export default function LoginPage() {
   const handleGoogleLogin = async () => {
@@ -102,6 +103,8 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
+
+      <InstallPWAPrompt />
     </div>
   );
 }
