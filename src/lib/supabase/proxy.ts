@@ -46,18 +46,27 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
+  // Preserve Supabase session cookies (set during refresh) across redirects
+  const redirectWithCookies = (url: URL) => {
+    const redirect = NextResponse.redirect(url);
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirect.cookies.set(cookie.name, cookie.value, cookie);
+    });
+    return redirect;
+  };
+
   // Not authenticated and trying to access protected route
   if (!user && !isLoginPage && !isAuthCallback) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
-    return NextResponse.redirect(url);
+    return redirectWithCookies(url);
   }
 
   // Authenticated user trying to access login page
   if (user && isLoginPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
-    return NextResponse.redirect(url);
+    return redirectWithCookies(url);
   }
 
   return supabaseResponse;
