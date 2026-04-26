@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CheckCircle2, Circle, Lock, Clock, Star } from 'lucide-react';
+import { CheckCircle2, Circle, Lock, Clock, Star, RotateCcw } from 'lucide-react';
 import type { LessonWithProgress } from '@/lib/types/database';
 
 interface LessonItemProps {
@@ -14,13 +14,14 @@ interface LessonItemProps {
 export default function LessonItem({ lesson, index, isLast, isAvailable }: LessonItemProps) {
   const isCompleted = lesson.status === 'completed';
   const isLocked = !isCompleted && !isAvailable;
+  const isClickable = isAvailable || isCompleted;
 
   const content = (
     <div
       className={`flex items-center gap-4 px-5 py-4 ${
         !isLast ? 'border-b border-border/50' : ''
       } ${isLocked ? 'opacity-50' : ''} ${
-        isAvailable ? 'hover:bg-blue-50/50 cursor-pointer' : ''
+        isClickable ? 'hover:bg-blue-50/50 cursor-pointer' : ''
       } transition-colors`}
     >
       {/* Status icon */}
@@ -63,12 +64,23 @@ export default function LessonItem({ lesson, index, isLast, isAvailable }: Lesso
           </svg>
         </div>
       )}
+      {!isAvailable && isCompleted && (
+        <div
+          className="shrink-0 w-8 h-8 rounded-full bg-success/10 flex items-center justify-center"
+          title="Repasar lección"
+        >
+          <RotateCcw size={14} className="text-success" strokeWidth={2.5} />
+        </div>
+      )}
     </div>
   );
 
-  if (isAvailable) {
+  if (isClickable) {
+    const href = isCompleted && !isAvailable
+      ? `/lessons/${lesson.id}?review=1`
+      : `/lessons/${lesson.id}`;
     return (
-      <Link href={`/lessons/${lesson.id}`}>
+      <Link href={href}>
         {content}
       </Link>
     );

@@ -6,10 +6,14 @@ import LessonStepper from '@/components/lessons/LessonStepper';
 
 export default async function LessonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ lessonId: string }>;
+  searchParams: Promise<{ review?: string }>;
 }) {
   const { lessonId } = await params;
+  const { review } = await searchParams;
+  const isReview = review === '1';
   const lessonIdNum = parseInt(lessonId, 10);
 
   if (isNaN(lessonIdNum)) {
@@ -71,17 +75,27 @@ export default async function LessonPage({
     .eq('lesson_id', lessonIdNum)
     .single();
 
-  if (existingProgress?.status === 'completed') {
+  const isCompleted = existingProgress?.status === 'completed';
+
+  // Block entry if completed and not in review mode
+  if (isCompleted && !isReview) {
     redirect('/lessons');
   }
 
-  // Mark as in_progress
-  await supabase.from('lesson_progress').upsert({
-    user_id: user.id,
-    lesson_id: lessonIdNum,
-    status: 'in_progress',
-    started_at: new Date().toISOString(),
-  }, { onConflict: 'user_id,lesson_id' });
+  // Reject ?review=1 if the lesson hasn't been completed yet
+  if (isReview && !isCompleted) {
+    redirect(`/lessons/${lessonIdNum}`);
+  }
+
+  // Only mark in_progress on a real attempt (not review)
+  if (!isReview) {
+    await supabase.from('lesson_progress').upsert({
+      user_id: user.id,
+      lesson_id: lessonIdNum,
+      status: 'in_progress',
+      started_at: new Date().toISOString(),
+    }, { onConflict: 'user_id,lesson_id' });
+  }
 
   // Fetch quizzes for this lesson
   const { data: quizzes } = await supabase
@@ -155,6 +169,13 @@ export default async function LessonPage({
         </span>
       </div>
 
+      {isReview && (
+        <div className="mb-4 px-4 py-3 rounded-xl bg-blue-50 border border-blue-100 text-sm text-primary font-medium flex items-center gap-2">
+          <span>🔁</span>
+          <span>Modo repaso — tu progreso ya está guardado, no se otorga XP nuevamente.</span>
+        </div>
+      )}
+
       {/* Stepper */}
       <LessonStepper
         lesson={lesson}
@@ -163,6 +184,7 @@ export default async function LessonPage({
         allAchievements={allAchievements || []}
         alreadyUnlockedIds={alreadyUnlockedIds}
         nextLessonId={nextLessonId}
+        reviewMode={isReview}
       />
     </div>
   );

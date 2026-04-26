@@ -48,6 +48,7 @@ interface LessonStepperProps {
   allAchievements: Achievement[];
   alreadyUnlockedIds: number[];
   nextLessonId: number | null;
+  reviewMode?: boolean;
 }
 
 type StepType = 'theory' | 'practical' | 'quiz' | 'completed';
@@ -64,6 +65,7 @@ export default function LessonStepper({
   allAchievements,
   alreadyUnlockedIds,
   nextLessonId,
+  reviewMode = false,
 }: LessonStepperProps) {
   // Build the list of steps
   const steps: StepDef[] = [];
@@ -355,7 +357,8 @@ export default function LessonStepper({
     if (nextIndex >= steps.length) return;
 
     // If the next step is 'completed', trigger the completion flow
-    if (steps[nextIndex].type === 'completed') {
+    // (skip in review mode — progress is already saved, no XP re-granted)
+    if (steps[nextIndex].type === 'completed' && !reviewMode) {
       completeLesson();
     }
 
@@ -410,7 +413,25 @@ export default function LessonStepper({
         />
       )}
 
-      {currentStep.type === 'completed' && (
+      {currentStep.type === 'completed' && reviewMode && (
+        <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-6">
+          <div className="text-6xl mb-4">🔁</div>
+          <h2 className="text-2xl font-bold text-text mb-2">¡Repaso completado!</h2>
+          <p className="text-text-secondary mb-8 max-w-sm">
+            Tu progreso original sigue intacto. {correctAnswers > 0 && quizzes.length > 0 && (
+              <>Acertaste {correctAnswers} de {quizzes.length} esta vez.</>
+            )}
+          </p>
+          <a
+            href="/lessons"
+            className="px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Volver a lecciones
+          </a>
+        </div>
+      )}
+
+      {currentStep.type === 'completed' && !reviewMode && (
         <>
           {isCompleting || !completionData ? (
             <div className="flex flex-col items-center justify-center min-h-[50vh]">
